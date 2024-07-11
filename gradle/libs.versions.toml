@@ -19,6 +19,11 @@ retrofit = "2.10.0"
 retrofit-serialization = "0.8.0"
 coroutines = "1.8.0"
 dagger = "2.51"
+junitJunit = "4.13.2"
+androidxJunit = "1.2.1"
+espressoCoreVersion = "3.6.1"
+appcompat = "1.7.0"
+material = "1.12.0"
 
 [libraries]
 build-logic-android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
@@ -42,9 +47,15 @@ serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidxComposeBom" }
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+junit = { group = "junit", name = "junit", version.ref = "junitJunit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidxJunit" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCoreVersion" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 [plugins]
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+androidLibrary = { id = "com.android.library", version.ref = "agp" }
 

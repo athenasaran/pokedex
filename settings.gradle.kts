@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "pokedex"
 include(":app")
+include(":design-system")
