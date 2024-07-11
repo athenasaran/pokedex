@@ -45,5 +45,6 @@ dependencies {
     implementation(libs.retrofit.core)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
+    implementation(project(":design-system"))
     debugImplementation(libs.androidx.ui.test.manifest)
 }
