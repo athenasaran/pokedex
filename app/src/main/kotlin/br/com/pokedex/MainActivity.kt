@@ -19,31 +19,7 @@ import com.athena.designsystem.theme.PokedexTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        val splashScreen = installSplashScreen().apply {
-            setOnExitAnimationListener { viewProvider ->
-                ObjectAnimator.ofFloat(
-                    viewProvider.view,
-                    "scaleX",
-                    0.5f, 0f
-                ).apply {
-                    interpolator = OvershootInterpolator()
-                    duration = 300
-                    doOnEnd { viewProvider.remove() }
-                    start()
-                }
-                ObjectAnimator.ofFloat(
-                    viewProvider.view,
-                    "scaleY",
-                    0.5f, 0f
-                ).apply {
-                    interpolator = OvershootInterpolator()
-                    duration = 300
-                    doOnEnd { viewProvider.remove() }
-                    start()
-                }
-            }
-        }
-
+        val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
         splashScreen.setKeepOnScreenCondition { true }
 
