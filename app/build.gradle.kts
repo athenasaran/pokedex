@@ -47,5 +47,6 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.androidx.core.splashscreen)
     implementation(project(":design-system"))
+    implementation(project(":features"))
     debugImplementation(libs.androidx.ui.test.manifest)
 }
