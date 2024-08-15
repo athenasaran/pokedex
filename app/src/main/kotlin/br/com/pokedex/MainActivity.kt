@@ -3,10 +3,15 @@ package br.com.pokedex
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
-import br.com.pokedex.navigation.AppNavHost
 import com.athena.designsystem.theme.PokedexTheme
+import com.athena.features.home.presentation.view.BottomBar
+import com.athena.features.navigation.AppNavHost
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,10 +20,19 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             PokedexTheme {
-                val host = rememberNavController()
-                AppNavHost(navController = host)
+                val navController = rememberNavController()
+
+                Scaffold(
+                    bottomBar = {
+                        BottomBar(navController)
+                    }
+                ) { innerPadding ->
+                    AppNavHost(
+                        modifier = Modifier.padding(innerPadding),
+                        navController = navController
+                    )
+                }
             }
         }
     }
 }
-

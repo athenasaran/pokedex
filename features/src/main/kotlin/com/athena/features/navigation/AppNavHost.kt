@@ -1,0 +1,43 @@
+package com.athena.features.navigation
+
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.athena.features.account.presentation.view.AccountScreen
+import com.athena.features.favorite.presentation.view.FavoriteScreen
+import com.athena.features.home.PokedexScreen
+import com.athena.features.home.presentation.view.BottomNavItem
+import com.athena.features.regions.presentation.view.RegionsScreen
+
+@Composable
+fun AppNavHost(
+    modifier: Modifier = Modifier,
+    navController: NavHostController = rememberNavController(),
+    startDestination: String = BottomNavItem.Pokedex.route
+) {
+    NavHost(
+        navController = navController,
+        startDestination = startDestination,
+        modifier = modifier
+    ) {
+
+        composable(route = BottomNavItem.Pokedex.route) {
+            PokedexScreen()
+        }
+
+        composable(route = BottomNavItem.Regions.route) {
+            RegionsScreen()
+        }
+
+        composable(route = BottomNavItem.Favorite.route) {
+            FavoriteScreen()
+        }
+
+        composable(route = BottomNavItem.Account.route) {
+            AccountScreen()
+        }
+    }
+}
