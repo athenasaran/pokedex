@@ -2,6 +2,7 @@ package com.athena.features.home.presentation.view
 
 import androidx.annotation.DrawableRes
 import com.athena.designsystem.R
+import com.athena.features.navigation.AppNavDestinations
 
 sealed class BottomNavItem(
     @DrawableRes val iconSelected: Int,
@@ -11,28 +12,28 @@ sealed class BottomNavItem(
 ) {
     data object Pokedex : BottomNavItem(
         title = "Pokedéx",
-        route = "pokedex",
+        route = AppNavDestinations.POKEDEX_ROUTE,
         iconSelected = R.drawable.ic_pokebola_selected,
         iconUnselected = R.drawable.ic_pokebola,
     )
 
     data object Regions : BottomNavItem(
         title = "Regiões",
-        route = "regions",
+        route = AppNavDestinations.REGIONS_ROUTE,
         iconSelected = R.drawable.ic_pin_selected,
         iconUnselected = R.drawable.ic_pokepin,
     )
 
     data object Favorite : BottomNavItem(
         title = "Favorito",
-        route = "favorite",
+        route = AppNavDestinations.FAVORITE_ROUTE,
         iconSelected = R.drawable.ic_heart_selected,
         iconUnselected = R.drawable.ic_pokeheart
     )
 
     data object Account : BottomNavItem(
         title = "Conta",
-        route = "account",
+        route = AppNavDestinations.ACCOUNT_ROUTE,
         iconSelected = R.drawable.ic_person_selected,
         iconUnselected = R.drawable.ic_person,
     )

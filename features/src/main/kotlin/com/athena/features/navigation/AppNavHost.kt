@@ -41,3 +41,10 @@ fun AppNavHost(
         }
     }
 }
+
+internal object AppNavDestinations {
+    const val POKEDEX_ROUTE = "pokedex"
+    const val REGIONS_ROUTE = "regions"
+    const val FAVORITE_ROUTE = "favorite"
+    const val ACCOUNT_ROUTE = "account"
+}
