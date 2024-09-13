@@ -1,6 +1,7 @@
 plugins {
     id("config.android.application")
     id("config.android.application.compose")
+    id("config.android.hilt")
     kotlin("android")
 }
 
@@ -40,9 +41,6 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.activity.compose)
-    implementation(libs.serialization)
-    implementation(libs.dagger.hilt)
-    implementation(libs.retrofit.core)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.androidx.core.splashscreen)
