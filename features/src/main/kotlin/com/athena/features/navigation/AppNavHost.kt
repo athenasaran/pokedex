@@ -2,6 +2,7 @@ package com.athena.features.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -10,7 +11,7 @@ import com.athena.features.account.presentation.view.AccountScreen
 import com.athena.features.favorite.presentation.view.FavoriteScreen
 import com.athena.features.home.PokedexScreen
 import com.athena.features.home.presentation.view.BottomNavItem
-import com.athena.features.regions.presentation.view.RegionsScreen
+import com.athena.features.regions.presentation.view.RegionsRoute
 
 @Composable
 fun AppNavHost(
@@ -29,7 +30,7 @@ fun AppNavHost(
         }
 
         composable(route = BottomNavItem.Regions.route) {
-            RegionsScreen()
+            RegionsRoute(hiltViewModel())
         }
 
         composable(route = BottomNavItem.Favorite.route) {

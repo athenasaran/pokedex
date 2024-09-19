@@ -1,12 +1,40 @@
 package com.athena.features.regions.presentation.view
 
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.athena.designsystem.components.cardregions.CardRegions
+import com.athena.features.regions.presentation.state.RegionsUiState
+import com.athena.features.regions.presentation.viewmodel.RegionsViewModel
 
 @Composable
-fun RegionsScreen(modifier: Modifier = Modifier) {
-    Text("Regions", modifier = modifier.padding(16.dp))
+fun RegionsScreen(state: RegionsUiState, modifier: Modifier = Modifier) {
+    when {
+        state.isLoading -> {
+            Text(text = "Loading...", modifier = modifier.padding(16.dp))
+        }
+
+        state.isError -> {
+            Text(text = "Error", modifier = modifier.padding(16.dp))
+        }
+
+        else -> {
+            LazyColumn {
+                items(state.regions) { region ->
+                    CardRegions(regions = region, modifier = Modifier.padding(16.dp))
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun RegionsRoute(viewModel: RegionsViewModel) {
+    val state = viewModel.uiState.collectAsState()
+    RegionsScreen(state.value)
 }
