@@ -15,6 +15,7 @@ buildscript {
         classpath (libs.build.logic.android.gradlePlugin)
         classpath (libs.build.logic.kotlin.gradlePlugin)
         classpath (libs.hilt.android.plugin)
+        classpath(libs.kotlin.serialization)
     }
 }
 

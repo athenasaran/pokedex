@@ -2,6 +2,7 @@ plugins {
     id("config.android.library")
     id("config.android.library.compose")
     id("config.android.hilt")
+    kotlin("plugin.serialization")
 }
 
 android {
@@ -22,6 +23,7 @@ dependencies {
     implementation(libs.retrofit.core)
     implementation(libs.retrofit.converter.kotlin.serialization)
     implementation(libs.logging.interceptor)
+    implementation(libs.coil)
 
     implementation(project(":design-system"))
 }

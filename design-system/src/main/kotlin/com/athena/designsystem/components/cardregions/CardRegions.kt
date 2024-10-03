@@ -19,6 +19,7 @@ import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -28,13 +29,18 @@ import com.athena.designsystem.theme.White
 
 @Composable
 fun CardRegions(modifier: Modifier = Modifier, regions: Regions) {
+    val generation = stringResource(
+        R.string.generation,
+        regions.generationRomanNumeral
+    )
     Box(
         modifier = with(modifier) {
             fillMaxWidth()
                 .heightIn(min = 120.dp)
                 .clip(shape = RoundedCornerShape(12.dp))
                 .paint(
-                    painterResource(id = regions.backgroundImage),
+                    alpha = 0.8f,
+                    painter = painterResource(id = regions.backgroundImage),
                     contentScale = ContentScale.FillBounds
                 )
         }
@@ -55,7 +61,12 @@ fun CardRegions(modifier: Modifier = Modifier, regions: Regions) {
                     fontWeight = FontWeight.Bold,
                     fontSize = 18.sp
                 )
-                Text(text = regions.generationRegion, color = Color.Gray, fontSize = 11.sp)
+                Text(
+                    text = generation,
+                    color = Color.Black,
+                    fontSize = 11.sp,
+                    fontWeight = FontWeight.Bold
+                )
             }
 
             Row(
@@ -78,7 +89,7 @@ private fun CardRegionsPrev() {
     CardRegions(
         regions = Regions(
             nameRegion = "Unova",
-            generationRegion = "Generation V",
+            generationRomanNumeral = "V",
             backgroundImage = R.drawable.region_unova,
             pokemonImages = listOf(
                 R.drawable.ic_pin_selected,
@@ -91,7 +102,7 @@ private fun CardRegionsPrev() {
 
 data class Regions(
     val nameRegion: String,
-    val generationRegion: String,
+    val generationRomanNumeral: String,
     @DrawableRes val backgroundImage: Int,
     @DrawableRes val pokemonImages: List<Int>
 )
