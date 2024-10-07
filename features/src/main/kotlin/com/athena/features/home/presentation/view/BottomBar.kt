@@ -1,14 +1,25 @@
 package com.athena.features.home.presentation.view
 
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.athena.designsystem.theme.Blue100
 
 @Composable
 fun BottomBar(navController: NavController) {
@@ -29,16 +40,27 @@ fun BottomBar(navController: NavController) {
 @Composable
 fun RowScope.NavigationItem(item: BottomNavItem, navController: NavController) {
     val selected = navController.getCurrentRoute() == item.route
+    val animatedSize by animateDpAsState(
+        targetValue = if (selected) 30.dp else 25.dp,
+        label = "",
+        animationSpec = tween(400)
+    )
 
     NavigationBarItem(
+        interactionSource = remember { MutableInteractionSource() },
         selected = selected,
         onClick = navigate(item, navController),
         icon = {
             Image(
+                modifier = Modifier.size(animatedSize),
                 painter = painterResource(id = if (selected) item.iconSelected else item.iconUnselected),
                 contentDescription = null
             )
-        }
+        },
+        label = {
+            Text(text = item.title, color = if (selected) Blue100 else Color.Transparent)
+        },
+        colors = NavigationBarItemDefaults.colors().copy(selectedIndicatorColor = Color.Transparent)
     )
 }
 
