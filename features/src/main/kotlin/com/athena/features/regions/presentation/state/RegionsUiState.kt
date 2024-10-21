@@ -1,10 +1,11 @@
 package com.athena.features.regions.presentation.state
 
-import com.athena.designsystem.components.cardregions.Regions
+import com.athena.features.regions.presentation.model.RegionUI
+
 
 data class RegionsUiState(
     val isLoading: Boolean = false,
-    val regions: List<Regions> = emptyList(),
+    val regions: List<RegionUI> = emptyList(),
     val isError: Boolean = false
 ) {
     fun initialState() = this.copy(

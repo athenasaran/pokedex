@@ -1,7 +1,6 @@
 package com.athena.designsystem.components.cardregions
 
 import androidx.annotation.DrawableRes
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -9,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -16,31 +16,34 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.paint
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import coil3.compose.AsyncImage
 import com.athena.designsystem.R
+import com.athena.designsystem.theme.Gray200
+import com.athena.designsystem.theme.PokedexTheme
+import com.athena.designsystem.theme.Typography
 import com.athena.designsystem.theme.White
 
 @Composable
-fun CardRegions(modifier: Modifier = Modifier, regions: Regions) {
-    val generation = stringResource(
-        R.string.generation,
-        regions.generationRomanNumeral
-    )
+fun CardRegions(
+    modifier: Modifier = Modifier,
+    generationRomanNumber: String,
+    @DrawableRes backgroundImage: Int,
+    pokemonImages: List<String>,
+    nameRegion: String
+) {
     Box(
         modifier = with(modifier) {
             fillMaxWidth()
-                .heightIn(min = 120.dp)
+                .heightIn(min = 100.dp)
                 .clip(shape = RoundedCornerShape(12.dp))
                 .paint(
                     alpha = 0.8f,
-                    painter = painterResource(id = regions.backgroundImage),
+                    painter = painterResource(id = backgroundImage),
                     contentScale = ContentScale.FillBounds
                 )
         }
@@ -52,29 +55,29 @@ fun CardRegions(modifier: Modifier = Modifier, regions: Regions) {
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Column(
-                verticalArrangement = Arrangement.spacedBy(4.dp)
-            ) {
+            Column {
                 Text(
-                    text = regions.nameRegion,
+                    text = nameRegion,
                     color = White,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 18.sp
+                    style = Typography.titleMedium
                 )
                 Text(
-                    text = generation,
-                    color = Color.Black,
-                    fontSize = 11.sp,
-                    fontWeight = FontWeight.Bold
+                    text = stringResource(
+                        R.string.generation,
+                        generationRomanNumber
+                    ),
+                    style = Typography.labelSmall,
+                    color = Gray200
                 )
             }
 
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(18.dp)
-            ) {
-                regions.pokemonImages.forEach { pokemonImage ->
-                    Image(
-                        painter = painterResource(id = pokemonImage),
+            Row {
+                pokemonImages.forEach { pokemonImage ->
+                    AsyncImage(
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .size(72.dp),
+                        model = pokemonImage,
                         contentDescription = null
                     )
                 }
@@ -86,23 +89,17 @@ fun CardRegions(modifier: Modifier = Modifier, regions: Regions) {
 @Preview
 @Composable
 private fun CardRegionsPrev() {
-    CardRegions(
-        regions = Regions(
-            nameRegion = "Unova",
-            generationRomanNumeral = "V",
+    PokedexTheme {
+        CardRegions(
+            modifier = Modifier.padding(16.dp),
+            generationRomanNumber = "V",
             backgroundImage = R.drawable.region_unova,
             pokemonImages = listOf(
-                R.drawable.ic_pin_selected,
-                R.drawable.ic_heart_selected,
-                R.drawable.ic_person_selected
-            )
+                "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-i/yellow/1.png",
+                "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ii/yellow/3.png",
+                "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-iii/yellow/5.png"
+            ),
+            nameRegion = "Unova"
         )
-    )
+    }
 }
-
-data class Regions(
-    val nameRegion: String,
-    val generationRomanNumeral: String,
-    @DrawableRes val backgroundImage: Int,
-    @DrawableRes val pokemonImages: List<Int>
-)

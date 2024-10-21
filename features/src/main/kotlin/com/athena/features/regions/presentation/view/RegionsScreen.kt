@@ -26,7 +26,13 @@ fun RegionsScreen(state: RegionsUiState, modifier: Modifier = Modifier) {
         else -> {
             LazyColumn {
                 items(state.regions) { region ->
-                    CardRegions(regions = region, modifier = Modifier.padding(16.dp))
+                    CardRegions(
+                        modifier = Modifier.padding(16.dp),
+                        generationRomanNumber = region.generationRomanNumeral,
+                        backgroundImage = region.backgroundImage,
+                        pokemonImages = region.pokemonImages,
+                        nameRegion = region.nameRegion
+                    )
                 }
             }
         }

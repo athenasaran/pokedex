@@ -44,9 +44,14 @@ val Typography = Typography(
         lineHeight = 28.sp
     ),
     titleMedium = defaultTextStyle.copy(
-        fontSize = 16.sp,
-        fontWeight = FontWeight.Bold,
-        lineHeight = 24.sp
+        fontSize = 18.sp,
+        fontWeight = FontWeight.SemiBold,
+        lineHeight = 28.sp
+    ),
+    titleSmall = defaultTextStyle.copy(
+        fontSize = 11.sp,
+        fontWeight = FontWeight.SemiBold,
+        lineHeight = 16.sp
     ),
     bodyLarge = defaultTextStyle.copy(
         fontSize = 16.sp,
