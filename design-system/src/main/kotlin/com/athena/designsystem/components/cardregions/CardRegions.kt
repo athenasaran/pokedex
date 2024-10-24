@@ -1,6 +1,7 @@
 package com.athena.designsystem.components.cardregions
 
 import androidx.annotation.DrawableRes
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,6 +17,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.paint
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -23,6 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.athena.designsystem.R
+import com.athena.designsystem.theme.Black
 import com.athena.designsystem.theme.Gray200
 import com.athena.designsystem.theme.PokedexTheme
 import com.athena.designsystem.theme.Typography
@@ -36,16 +40,22 @@ fun CardRegions(
     pokemonImages: List<String>,
     nameRegion: String
 ) {
+    val gradient = Brush.horizontalGradient(
+        colors = listOf(Black, Color.Transparent),
+        startX = 0f,
+        endX = 1000f
+    )
+
     Box(
         modifier = with(modifier) {
             fillMaxWidth()
                 .heightIn(min = 100.dp)
                 .clip(shape = RoundedCornerShape(12.dp))
                 .paint(
-                    alpha = 0.8f,
                     painter = painterResource(id = backgroundImage),
                     contentScale = ContentScale.FillBounds
                 )
+                .background(gradient, alpha = 0.8f)
         }
     ) {
         Row(
@@ -76,7 +86,7 @@ fun CardRegions(
                     AsyncImage(
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
-                            .size(72.dp),
+                            .size(62.dp),
                         model = pokemonImage,
                         contentDescription = null
                     )
@@ -93,7 +103,7 @@ private fun CardRegionsPrev() {
         CardRegions(
             modifier = Modifier.padding(16.dp),
             generationRomanNumber = "V",
-            backgroundImage = R.drawable.region_unova,
+            backgroundImage = R.drawable.img_region_unova,
             pokemonImages = listOf(
                 "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-i/yellow/1.png",
                 "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ii/yellow/3.png",
