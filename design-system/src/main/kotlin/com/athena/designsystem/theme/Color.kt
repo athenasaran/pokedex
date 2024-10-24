@@ -3,8 +3,8 @@ package com.athena.designsystem.theme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.graphics.Color
 
+val Black = Color(0xFF000000)
 val White = Color(0xFFFFFFFF)
-val Black = Color(0xFF2C2C2C)
 val Blue100 = Color(0xFF173EA5)
 val Blue200 = Color(0xFF4A90E2)
 val Blue300 = Color(0xFF0B6DC3)
@@ -22,6 +22,7 @@ val Red100 = Color(0xFFCE416B)
 val Red200 = Color(0xFFFA7179)
 val Gray100 = Color(0xFF919AA2)
 val Gray200 = Color(0xFF5A5465)
+val Gray300 = Color(0xFF2C2C2C)
 val Beige100 = Color(0xFFC5B78C)
 val Purple100 = Color(0xFFB567CE)
 
