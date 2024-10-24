@@ -12,6 +12,8 @@ java {
 dependencies {
     compileOnly(libs.build.logic.android.gradlePlugin)
     compileOnly(libs.build.logic.kotlin.gradlePlugin)
+    compileOnly(libs.room.gradlePlugin)
+    compileOnly(libs.ksp.gradlePlugin)
 }
 
 gradlePlugin {
@@ -37,6 +39,10 @@ gradlePlugin {
         register("androidHilt") {
             id = "config.android.hilt"
             implementationClass = "AndroidHiltConventionPlugin"
+        }
+        register("androidRoom") {
+            id = "config.android.room"
+            implementationClass = "AndroidRoomConventionPlugin"
         }
     }
 }
