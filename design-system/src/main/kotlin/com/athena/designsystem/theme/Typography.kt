@@ -60,7 +60,7 @@ val Typography = Typography(
     ),
     bodyMedium = defaultTextStyle.copy(
         fontSize = 14.sp,
-        fontWeight = FontWeight.Normal,
+        fontWeight = FontWeight.SemiBold,
         lineHeight = 20.sp
     ),
     labelLarge = defaultTextStyle.copy(
@@ -69,12 +69,12 @@ val Typography = Typography(
         lineHeight = 20.sp
     ),
     labelMedium = defaultTextStyle.copy(
-        fontSize = 12.sp,
+        fontSize = 14.sp,
         fontWeight = FontWeight.Normal,
         lineHeight = 16.sp
     ),
     labelSmall = defaultTextStyle.copy(
-        fontSize = 10.sp,
+        fontSize = 12.sp,
         fontWeight = FontWeight.Normal,
         lineHeight = 16.sp
     )

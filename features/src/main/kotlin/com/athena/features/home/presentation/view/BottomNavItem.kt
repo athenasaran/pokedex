@@ -18,21 +18,21 @@ sealed class BottomNavItem(
     )
 
     data object Regions : BottomNavItem(
-        title = "Regiões",
+        title = "Regions",
         route = AppNavDestinations.REGIONS_ROUTE,
         iconSelected = R.drawable.ic_pin_selected,
         iconUnselected = R.drawable.ic_pokepin,
     )
 
     data object Favorite : BottomNavItem(
-        title = "Favorito",
+        title = "Favorite",
         route = AppNavDestinations.FAVORITE_ROUTE,
         iconSelected = R.drawable.ic_heart_selected,
         iconUnselected = R.drawable.ic_pokeheart
     )
 
     data object Account : BottomNavItem(
-        title = "Conta",
+        title = "Account",
         route = AppNavDestinations.ACCOUNT_ROUTE,
         iconSelected = R.drawable.ic_person_selected,
         iconUnselected = R.drawable.ic_person,

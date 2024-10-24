@@ -9,6 +9,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.athena.designsystem.components.cardregions.CardRegions
+import com.athena.designsystem.components.loading.CircularLoading
 import com.athena.features.regions.presentation.state.RegionsUiState
 import com.athena.features.regions.presentation.viewmodel.RegionsViewModel
 
@@ -16,7 +17,7 @@ import com.athena.features.regions.presentation.viewmodel.RegionsViewModel
 fun RegionsScreen(state: RegionsUiState, modifier: Modifier = Modifier) {
     when {
         state.isLoading -> {
-            Text(text = "Loading...", modifier = modifier.padding(16.dp))
+            CircularLoading()
         }
 
         state.isError -> {
