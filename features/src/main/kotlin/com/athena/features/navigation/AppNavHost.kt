@@ -9,8 +9,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.athena.features.account.presentation.view.AccountScreen
 import com.athena.features.favorite.presentation.view.FavoriteScreen
-import com.athena.features.home.PokedexScreen
 import com.athena.features.home.presentation.view.BottomNavItem
+import com.athena.features.pokedex.presentation.view.PokedexScreen
 import com.athena.features.regions.presentation.view.RegionsRoute
 
 @Composable

@@ -1,4 +1,4 @@
-package com.athena.features.home
+package com.athena.features.pokedex.presentation.view
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
