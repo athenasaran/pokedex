@@ -10,7 +10,7 @@ import androidx.navigation.compose.rememberNavController
 import com.athena.features.account.presentation.view.AccountScreen
 import com.athena.features.favorite.presentation.view.FavoriteScreen
 import com.athena.features.home.presentation.view.BottomNavItem
-import com.athena.features.pokedex.presentation.view.PokedexScreen
+import com.athena.features.pokedex.presentation.view.PokedexRoute
 import com.athena.features.regions.presentation.view.RegionsRoute
 
 @Composable
@@ -26,7 +26,7 @@ fun AppNavHost(
     ) {
 
         composable(route = BottomNavItem.Pokedex.route) {
-            PokedexScreen()
+            PokedexRoute(hiltViewModel())
         }
 
         composable(route = BottomNavItem.Regions.route) {

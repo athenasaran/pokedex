@@ -1,12 +1,19 @@
 package com.athena.features.pokedex.presentation.view
 
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import com.athena.features.pokedex.presentation.viewmodel.PokemonViewModel
 
 @Composable
 fun PokedexScreen(modifier: Modifier = Modifier) {
-    Text("Pokedex", modifier = modifier.padding(16.dp))
+
+}
+
+@Composable
+fun PokedexRoute(viewModel: PokemonViewModel) {
+    LaunchedEffect(Unit) {
+        viewModel.onStart()
+    }
+    PokedexScreen()
 }
