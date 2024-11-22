@@ -1,13 +1,11 @@
 plugins {
     id("config.android.library")
-    id("config.android.library.compose")
     id("config.android.hilt")
-    id("config.android.room")
     kotlin("plugin.serialization")
 }
 
 android {
-    namespace = "com.athena.features"
+    namespace = "com.athena.network"
     compileSdk = 34
 
     defaultConfig {
@@ -16,16 +14,9 @@ android {
 }
 
 dependencies {
-
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.ui.graphics)
-    implementation(libs.serialization)
     implementation(libs.retrofit.core)
     implementation(libs.retrofit.converter.kotlin.serialization)
     implementation(libs.logging.interceptor)
     implementation(libs.coil)
-
-    implementation(project(":design-system"))
-    implementation(project(":network"))
+    implementation(libs.serialization)
 }

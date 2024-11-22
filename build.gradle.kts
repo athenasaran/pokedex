@@ -12,9 +12,9 @@ buildscript {
         }
     }
     dependencies {
-        classpath (libs.build.logic.android.gradlePlugin)
-        classpath (libs.build.logic.kotlin.gradlePlugin)
-        classpath (libs.hilt.android.plugin)
+        classpath(libs.build.logic.android.gradlePlugin)
+        classpath(libs.build.logic.kotlin.gradlePlugin)
+        classpath(libs.hilt.android.plugin)
         classpath(libs.kotlin.serialization)
     }
 }
@@ -27,6 +27,6 @@ plugins {
     alias(libs.plugins.room) apply false
 }
 
-tasks.register("clean",Delete::class){
+tasks.register("clean", Delete::class) {
     delete(rootProject.layout.buildDirectory)
 }

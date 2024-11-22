@@ -1,4 +1,4 @@
-package com.athena.features.home.network.di
+package com.athena.network.di
 
 import dagger.Module
 import dagger.Provides
@@ -15,7 +15,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class HomeNetworkModule {
+class NetworkModule {
 
     @Provides
     fun providesHttpLoggingInterceptor(): HttpLoggingInterceptor {

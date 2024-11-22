@@ -18,3 +18,4 @@ rootProject.name = "pokedex"
 include(":app")
 include(":design-system")
 include(":features")
+include(":network")
