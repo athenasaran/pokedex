@@ -10,7 +10,7 @@ private const val LIMIT = 20
 class PokemonRemoteDataSource @Inject constructor(
     private val pokemonApi: PokemonApi
 ) {
-    suspend fun getPokemons(offset: Int) = pokemonApi.getPokemons(LIMIT, offset).toPokemonList()
+    suspend fun getPokemons(offset: Int) = pokemonApi.getPokemons(LIMIT, offset * LIMIT).toPokemonList()
 
     private fun PokemonListResponse.toPokemonList() = results.map {
         Pokemon(it.name, getImageUrl(it.url))

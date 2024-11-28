@@ -1,9 +1,10 @@
 package com.athena.features.pokedex.presentation.viewmodel
 
-import android.util.Log
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.athena.features.PokeViewModel
 import com.athena.features.pokedex.domain.repository.PokemonRepository
+import com.athena.features.pokedex.presentation.intent.PokedexIntent
+import com.athena.features.pokedex.presentation.state.PokedexState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
@@ -16,23 +17,27 @@ import javax.inject.Inject
 @HiltViewModel
 class PokemonViewModel @Inject constructor(
     private val pokemonRepository: PokemonRepository
-) : ViewModel() {
+) : PokeViewModel<PokedexState>(PokedexState()) {
 
     private var currentPage = 0
 
-    private fun getPokemons(page: Int) = viewModelScope.launch {
-        pokemonRepository.getPokemons(page).flowOn(Dispatchers.IO).onStart {
-
-        }.onCompletion {
-
-        }.catch {
-            Log.d("PokemonViewModel error", it.toString())
-        }.collect {
-            Log.d("PokemonViewModel", it.toString())
+    fun handleIntent(intent: PokedexIntent) = viewModelScope.launch {
+        when (intent) {
+            is PokedexIntent.OnInitScreen -> getPokemons(currentPage)
+            is PokedexIntent.LoadMorePokemons -> getPokemons(++currentPage)
+            is PokedexIntent.Retry -> getPokemons(currentPage)
         }
     }
 
-    fun onStart() {
-        getPokemons(currentPage)
+    private suspend fun getPokemons(page: Int) {
+        pokemonRepository.getPokemons(page).flowOn(Dispatchers.IO).onStart {
+            setState { it.copy(isLoading = true) }
+        }.onCompletion {
+            setState { it.copy(isLoading = false) }
+        }.catch { _ ->
+            setState { it.copy(isLoading = false, error = true) }
+        }.collect { list ->
+            setState { it.copy(pokemonList = list) }
+        }
     }
 }
