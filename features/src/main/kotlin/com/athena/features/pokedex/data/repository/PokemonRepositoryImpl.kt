@@ -12,7 +12,7 @@ class PokemonRepositoryImpl @Inject constructor(
     private val pokemonRemoteDataSource: PokemonRemoteDataSource,
     private val pokemonLocalDataSource: PokemonLocalDataSource
 ) : PokemonRepository {
-    override suspend fun getPokemons(page: Int): Flow<List<Pokemon>> {
+    override fun getPokemons(page: Int): Flow<List<Pokemon>> {
         return flow {
             val localPageList = pokemonLocalDataSource.getPokemons(page)
             if (localPageList.isEmpty()) {

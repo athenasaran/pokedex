@@ -21,7 +21,16 @@ import javax.inject.Singleton
 @Module
 class PokemonsModule {
     @Provides
-    fun provideRegionsApi(retrofit: Retrofit) = retrofit.create(PokemonApi::class.java)
+    fun provideRegionsApi(retrofit: Retrofit): PokemonApi = retrofit.create(PokemonApi::class.java)
+
+    @Provides
+    fun provideDataSource(api: PokemonApi): PokemonRemoteDataSource = PokemonRemoteDataSource(api)
+
+    @Provides
+    fun providePokemonLocalDataSource(
+        pokemonDao: PokemonDao
+    ): PokemonLocalDataSource = PokemonLocalDataSource(pokemonDao)
+
 
     @Provides
     fun providePokemonRepository(

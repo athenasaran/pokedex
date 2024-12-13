@@ -2,7 +2,7 @@ package com.athena.features.pokedex.presentation.viewmodel
 
 import androidx.lifecycle.viewModelScope
 import com.athena.features.PokeViewModel
-import com.athena.features.pokedex.domain.repository.PokemonRepository
+import com.athena.features.pokedex.domain.usecase.PokedexUseCase
 import com.athena.features.pokedex.presentation.intent.PokedexIntent
 import com.athena.features.pokedex.presentation.state.PokedexState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PokemonViewModel @Inject constructor(
-    private val pokemonRepository: PokemonRepository
+    private val pokedexUseCase: PokedexUseCase
 ) : PokeViewModel<PokedexState>(PokedexState()) {
 
     private var currentPage = 0
@@ -30,7 +30,7 @@ class PokemonViewModel @Inject constructor(
     }
 
     private suspend fun getPokemons(page: Int) {
-        pokemonRepository.getPokemons(page).flowOn(Dispatchers.IO).onStart {
+        pokedexUseCase.getPokemons(page).flowOn(Dispatchers.IO).onStart {
             setState { it.copy(isLoading = true) }
         }.onCompletion {
             setState { it.copy(isLoading = false) }
