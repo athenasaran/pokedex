@@ -16,15 +16,14 @@ import retrofit2.Retrofit
 class RegionsModule {
 
     @Provides
-    fun provideRegionsApi(retrofit: Retrofit) = retrofit.create(RegionsApi::class.java)
+    fun provideRegionsApi(retrofit: Retrofit): RegionsApi = retrofit.create(RegionsApi::class.java)
 
     @Provides
-    fun provideRegionsDataSource(regionsApi: RegionsApi): RegionsDataSource {
-        return RegionsDataSourceImpl(regionsApi)
-    }
+    fun provideRegionsDataSource(regionsApi: RegionsApi): RegionsDataSource =
+        RegionsDataSourceImpl(regionsApi)
+
 
     @Provides
-    fun provideRegionsRepository(regionsDataSource: RegionsDataSource): RegionRepository {
-        return RegionRepositoryImpl(regionsDataSource)
-    }
+    fun provideRegionsRepository(regionsDataSource: RegionsDataSource): RegionRepository =
+        RegionRepositoryImpl(regionsDataSource)
 }
