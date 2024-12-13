@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -33,6 +34,22 @@ fun ButtonCategories(
         title = stringResource(type.buttonText),
         backgroundColor = type.colorButtonBackground,
         titleColor = type.colorButtonText,
+        modifier = modifier.width(400.dp),
+        onClick = onClick
+    )
+}
+
+@Composable
+fun ButtonPokedex(
+    type: ButtonType,
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit
+) {
+    ButtonDefault(
+        title = stringResource(type.buttonText),
+        backgroundColor = type.colorButtonBackground,
+        titleColor = type.colorButtonText,
+        iconRight = type.icon,
         modifier = modifier.width(400.dp),
         onClick = onClick
     )
@@ -105,7 +122,7 @@ fun ButtonCategoriesPreview() {
 
 @Preview
 @Composable
-fun ButtonCategoriesWithIcons() {
+fun ButtonDefaultWithIconsPreview() {
     Row() {
         ButtonDefault(
             title = "Button",
@@ -124,5 +141,19 @@ fun ButtonCategoriesWithIcons() {
             onClick = { }
         )
     }
+}
 
+@Preview
+@Composable
+fun ButtonPokedexPreview() {
+    LazyColumn(
+        modifier = Modifier.padding(vertical = 16.dp),
+    ) {
+        items(ButtonType.entries.size) { index ->
+            ButtonPokedex(
+                type = ButtonType.entries[index],
+                onClick = {}
+            )
+        }
+    }
 }
