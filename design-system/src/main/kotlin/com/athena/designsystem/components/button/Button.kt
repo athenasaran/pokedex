@@ -22,11 +22,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.athena.designsystem.R
+import com.athena.designsystem.components.pokemon.PokemonType
 import com.athena.designsystem.theme.Typography
 
 @Composable
 fun ButtonCategories(
-    type: ButtonType,
+    type: PokemonType,
     modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
@@ -40,8 +41,8 @@ fun ButtonCategories(
 }
 
 @Composable
-fun ButtonPokedex(
-    type: ButtonType,
+fun ButtonLargePokedex(
+    type: PokemonType,
     modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
@@ -50,7 +51,23 @@ fun ButtonPokedex(
         backgroundColor = type.colorButtonBackground,
         titleColor = type.colorButtonText,
         iconRight = type.icon,
-        modifier = modifier.width(400.dp),
+        modifier = modifier.width(330.dp),
+        onClick = onClick
+    )
+}
+
+@Composable
+fun ButtonSmallPokedex(
+    type: PokemonType,
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit
+) {
+    ButtonDefault(
+        title = stringResource(type.buttonText),
+        backgroundColor = type.colorButtonBackground,
+        titleColor = type.colorButtonText,
+        iconRight = type.icon,
+        modifier = modifier.width(110.dp),
         onClick = onClick
     )
 }
@@ -75,12 +92,13 @@ fun ButtonDefault(
         onClick = onClick
     ) {
         Box(
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.Center,
+            modifier = Modifier.padding(start = 16.dp)
         ) {
             Text(text = title, style = Typography.bodyMedium)
         }
 
-        Box(contentAlignment = Alignment.CenterEnd, modifier = Modifier.padding(end = 16.dp)) {
+        Box(contentAlignment = Alignment.CenterEnd, modifier = Modifier.padding(end = 8.dp)) {
             iconLeft?.let {
                 Image(
                     painter = painterResource(id = it),
@@ -88,7 +106,7 @@ fun ButtonDefault(
                 )
             }
         }
-        Box(contentAlignment = Alignment.CenterStart, modifier = Modifier.padding(start = 16.dp)) {
+        Box(contentAlignment = Alignment.CenterStart, modifier = Modifier.padding(start = 8.dp)) {
             iconRight?.let {
                 Image(
                     painter = painterResource(id = it),
@@ -115,7 +133,7 @@ fun ButtonDefaultPreview() {
 @Composable
 fun ButtonCategoriesPreview() {
     ButtonCategories(
-        type = ButtonType.ICE,
+        type = PokemonType.ICE,
         onClick = {}
     )
 }
@@ -145,13 +163,28 @@ fun ButtonDefaultWithIconsPreview() {
 
 @Preview
 @Composable
-fun ButtonPokedexPreview() {
+fun ButtonlargePokedexPreview() {
     LazyColumn(
         modifier = Modifier.padding(vertical = 16.dp),
     ) {
-        items(ButtonType.entries.size) { index ->
-            ButtonPokedex(
-                type = ButtonType.entries[index],
+        items(PokemonType.entries.size) { index ->
+            ButtonLargePokedex(
+                type = PokemonType.entries[index],
+                onClick = {}
+            )
+        }
+    }
+}
+
+@Preview
+@Composable
+fun ButtonSmallPokedexPreview() {
+    LazyColumn(
+        modifier = Modifier.padding(vertical = 16.dp),
+    ) {
+        items(PokemonType.entries.size) { index ->
+            ButtonSmallPokedex(
+                type = PokemonType.entries[index],
                 onClick = {}
             )
         }

@@ -17,11 +17,13 @@ class PokemonLocalDataSource @Inject constructor(
     private fun Pokemon.toEntity(page: Int) = PokemonEntity(
         name = name,
         imageUrl = imageUrl,
-        page = page
+        page = page,
+        id = id
     )
 
     private fun PokemonEntity.toModel() = Pokemon(
         name = name,
-        imageUrl = imageUrl
+        imageUrl = imageUrl,
+        id = id
     )
 }

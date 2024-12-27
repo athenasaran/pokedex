@@ -1,13 +1,15 @@
 package com.athena.features.pokedex.presentation.view
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.athena.designsystem.components.cardpokedex.CardPokedex
+import com.athena.designsystem.components.pokemon.PokemonType
 import com.athena.features.pokedex.domain.model.Pokemon
 import com.athena.features.pokedex.presentation.intent.PokedexIntent
 import com.athena.features.pokedex.presentation.state.PokedexState
@@ -24,14 +26,24 @@ fun PokedexScreen(
     }
 
     EndlessLazyColumn(
+        modifier = modifier,
         buffer = 3,
         items = state.pokemonList,
         itemKey = { card: Pokemon -> card.name },
         itemContent = { pokemon: Pokemon ->
-            Text(
-                text = pokemon.name,
-                modifier = Modifier.padding(16.dp)
-            )
+            Column(
+                modifier = Modifier.padding(8.dp)
+            ) {
+                CardPokedex(
+                    backgroundImage = pokemon.imageUrl,
+                    pokemonType = listOf(PokemonType.WATER, PokemonType.FIRE),
+                    pokemonNumber = pokemon.id,
+                    pokemonName = pokemon.name,
+                    onClickFavorite = {}
+                ) {
+                    onIntent(PokedexIntent.OnPokemonClicked(pokemon.name))
+                }
+            }
         },
         loadMore = {
             onIntent(PokedexIntent.LoadMorePokemons)

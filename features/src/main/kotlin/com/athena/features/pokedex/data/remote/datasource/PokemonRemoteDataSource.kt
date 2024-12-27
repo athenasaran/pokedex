@@ -13,12 +13,16 @@ class PokemonRemoteDataSource @Inject constructor(
     suspend fun getPokemons(offset: Int) = pokemonApi.getPokemons(LIMIT, offset * LIMIT).toPokemonList()
 
     private fun PokemonListResponse.toPokemonList() = results.map {
-        Pokemon(it.name, getImageUrl(it.url))
+        Pokemon(it.name, getImageUrl(it.url), getId(it.url))
     }
 
     private fun getImageUrl(url: String): String {
         val index = url.split("/".toRegex()).dropLast(1).last()
         return "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/" +
                 "pokemon/other/official-artwork/$index.png"
+    }
+
+    private fun getId(url: String): String {
+        return url.split("/".toRegex()).dropLast(1).last()
     }
 }

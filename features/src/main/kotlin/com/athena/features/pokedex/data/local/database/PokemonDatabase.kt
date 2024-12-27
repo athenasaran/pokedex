@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import com.athena.features.pokedex.data.local.dao.PokemonDao
 import com.athena.features.pokedex.data.local.model.PokemonEntity
 
-@Database(entities = [PokemonEntity::class], version = 1)
+@Database(entities = [PokemonEntity::class], version = 2)
 abstract class PokemonDatabase : RoomDatabase() {
     abstract fun pokemonDao(): PokemonDao
 }
