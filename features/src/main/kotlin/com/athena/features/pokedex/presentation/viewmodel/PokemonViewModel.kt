@@ -29,7 +29,6 @@ class PokemonViewModel @Inject constructor(
             is PokedexIntent.OnInitScreen -> getPokemons(currentPage)
             is PokedexIntent.LoadMorePokemons -> getPokemons(++currentPage)
             is PokedexIntent.Retry -> getPokemons(currentPage)
-            is PokedexIntent.OnPokemonClicked -> getPokemonDetail(intent.pokemonName)
         }
     }
 
@@ -44,20 +43,6 @@ class PokemonViewModel @Inject constructor(
         }.collect { list ->
             Log.d("PokemonList", "$list")
             setState { it.copy(pokemonList = list) }
-        }
-    }
-
-    private suspend fun getPokemonDetail(pokemonName: String) {
-        pokemonDetailsUseCase.getPokemonDetails(pokemonName).flowOn(Dispatchers.IO).onStart {
-            setState { it.copy(isLoading = true) }
-        }.onCompletion {
-            setState { it.copy(isLoading = false) }
-        }.catch { e ->
-            Log.d("PokemonDetails", "Error $e")
-            setState { it.copy(error = true) }
-        }.collect { pokemonDetails ->
-            setState { it.copy(pokemonDetails = pokemonDetails) }
-            Log.d("PokemonDetails", "$pokemonDetails")
         }
     }
 }

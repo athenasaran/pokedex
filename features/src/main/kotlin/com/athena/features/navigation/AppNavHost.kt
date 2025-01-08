@@ -1,5 +1,7 @@
 package com.athena.features.navigation
 
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -10,35 +12,53 @@ import androidx.navigation.compose.rememberNavController
 import com.athena.features.account.presentation.view.AccountScreen
 import com.athena.features.favorite.presentation.view.FavoriteScreen
 import com.athena.features.home.presentation.view.BottomNavItem
+import com.athena.features.pokedex.presentation.view.PokedexDetailsScreen
 import com.athena.features.pokedex.presentation.view.PokedexRoute
 import com.athena.features.regions.presentation.view.RegionsRoute
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 fun AppNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
     startDestination: String = BottomNavItem.Pokedex.route
 ) {
-    NavHost(
-        navController = navController,
-        startDestination = startDestination,
-        modifier = modifier
-    ) {
+    SharedTransitionLayout {
+        NavHost(
+            navController = navController,
+            startDestination = startDestination,
+            modifier = modifier
+        ) {
 
-        composable(route = BottomNavItem.Pokedex.route) {
-            PokedexRoute(hiltViewModel())
-        }
+            composable(route = BottomNavItem.Pokedex.route) {
+                PokedexRoute(viewModel = hiltViewModel(), animatedVisibilityScope = this) {
+                    navController.navigate("pokemon-details/${it}")
+                }
+            }
 
-        composable(route = BottomNavItem.Regions.route) {
-            RegionsRoute(hiltViewModel())
-        }
+            composable(route = BottomNavItem.Regions.route) {
+                RegionsRoute(hiltViewModel())
+            }
 
-        composable(route = BottomNavItem.Favorite.route) {
-            FavoriteScreen()
-        }
+            composable(route = BottomNavItem.Favorite.route) {
+                FavoriteScreen()
+            }
 
-        composable(route = BottomNavItem.Account.route) {
-            AccountScreen()
+            composable(route = BottomNavItem.Account.route) {
+                AccountScreen()
+            }
+
+            composable("pokemon-details/{pokemonName}") { backStackEntry ->
+                val pokemonName = backStackEntry.arguments?.getString("pokemonName")
+
+                PokedexDetailsScreen(
+                    viewModel = hiltViewModel(),
+                    animatedVisibilityScope = this,
+                    pokemonId = pokemonName ?: "bulbasaur"
+                ) {
+                    navController.popBackStack()
+                }
+            }
         }
     }
 }

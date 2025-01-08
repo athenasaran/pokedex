@@ -1,5 +1,11 @@
+@file:OptIn(ExperimentalSharedTransitionApi::class)
+
 package com.athena.features.pokedex.presentation.view
 
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -16,10 +22,12 @@ import com.athena.features.pokedex.presentation.state.PokedexState
 import com.athena.features.pokedex.presentation.viewmodel.PokemonViewModel
 
 @Composable
-fun PokedexScreen(
+fun SharedTransitionScope.PokedexScreen(
     modifier: Modifier = Modifier,
     onIntent: (PokedexIntent) -> Unit,
-    state: PokedexState
+    state: PokedexState,
+    animatedVisibilityScope: AnimatedVisibilityScope,
+    onItemClicked: (String) -> Unit
 ) {
     LaunchedEffect(key1 = Unit) {
         onIntent(PokedexIntent.OnInitScreen)
@@ -32,7 +40,13 @@ fun PokedexScreen(
         itemKey = { card: Pokemon -> card.name },
         itemContent = { pokemon: Pokemon ->
             Column(
-                modifier = Modifier.padding(8.dp)
+                modifier = Modifier
+                    .padding(8.dp)
+                    .sharedElement(
+                        state = rememberSharedContentState(key = pokemon.name),
+                        animatedVisibilityScope = animatedVisibilityScope,
+                        boundsTransform = { _, _ -> tween(1000) }
+                    )
             ) {
                 CardPokedex(
                     backgroundImage = pokemon.imageUrl,
@@ -41,7 +55,7 @@ fun PokedexScreen(
                     pokemonName = pokemon.name,
                     onClickFavorite = {}
                 ) {
-                    onIntent(PokedexIntent.OnPokemonClicked(pokemon.name))
+                    onItemClicked(pokemon.name)
                 }
             }
         },
@@ -52,11 +66,18 @@ fun PokedexScreen(
 }
 
 @Composable
-fun PokedexRoute(viewModel: PokemonViewModel) {
+fun SharedTransitionScope.PokedexRoute(
+    viewModel: PokemonViewModel,
+    animatedVisibilityScope: AnimatedVisibilityScope,
+    onItemClicked: (String) -> Unit
+) {
     val state by viewModel.screenState.collectAsState()
 
     PokedexScreen(
         onIntent = viewModel::handleIntent,
-        state = state
-    )
+        state = state,
+        animatedVisibilityScope = animatedVisibilityScope
+    ) {
+        onItemClicked(it)
+    }
 }
