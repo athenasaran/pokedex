@@ -15,12 +15,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.athena.designsystem.components.cardpokedex.CardPokedex
-import com.athena.designsystem.components.pokemon.PokemonType
 import com.athena.features.pokedex.domain.model.Pokemon
 import com.athena.features.pokedex.presentation.intent.PokedexIntent
 import com.athena.features.pokedex.presentation.state.PokedexState
 import com.athena.features.pokedex.presentation.viewmodel.PokemonViewModel
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 fun SharedTransitionScope.PokedexScreen(
     modifier: Modifier = Modifier,
@@ -50,7 +50,6 @@ fun SharedTransitionScope.PokedexScreen(
             ) {
                 CardPokedex(
                     backgroundImage = pokemon.imageUrl,
-                    pokemonType = listOf(PokemonType.WATER, PokemonType.FIRE),
                     pokemonNumber = pokemon.id,
                     pokemonName = pokemon.name,
                     onClickFavorite = {}

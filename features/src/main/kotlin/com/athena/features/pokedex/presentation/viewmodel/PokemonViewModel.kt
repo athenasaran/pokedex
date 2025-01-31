@@ -3,7 +3,6 @@ package com.athena.features.pokedex.presentation.viewmodel
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.athena.features.PokeViewModel
-import com.athena.features.details.domain.usecase.PokemonDetailsUseCase
 import com.athena.features.pokedex.domain.usecase.PokedexUseCase
 import com.athena.features.pokedex.presentation.intent.PokedexIntent
 import com.athena.features.pokedex.presentation.state.PokedexState
@@ -18,8 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PokemonViewModel @Inject constructor(
-    private val pokedexUseCase: PokedexUseCase,
-    private val pokemonDetailsUseCase: PokemonDetailsUseCase
+    private val pokedexUseCase: PokedexUseCase
 ) : PokeViewModel<PokedexState>(PokedexState()) {
 
     private var currentPage = 0

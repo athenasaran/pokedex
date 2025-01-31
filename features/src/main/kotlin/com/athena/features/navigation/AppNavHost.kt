@@ -10,9 +10,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.athena.features.account.presentation.view.AccountScreen
+import com.athena.features.details.presentation.view.PokemonDetailsRoute
 import com.athena.features.favorite.presentation.view.FavoriteScreen
 import com.athena.features.home.presentation.view.BottomNavItem
-import com.athena.features.pokedex.presentation.view.PokedexDetailsScreen
 import com.athena.features.pokedex.presentation.view.PokedexRoute
 import com.athena.features.regions.presentation.view.RegionsRoute
 
@@ -51,7 +51,7 @@ fun AppNavHost(
             composable("pokemon-details/{pokemonName}") { backStackEntry ->
                 val pokemonName = backStackEntry.arguments?.getString("pokemonName")
 
-                PokedexDetailsScreen(
+                PokemonDetailsRoute(
                     viewModel = hiltViewModel(),
                     animatedVisibilityScope = this,
                     pokemonId = pokemonName ?: "bulbasaur"

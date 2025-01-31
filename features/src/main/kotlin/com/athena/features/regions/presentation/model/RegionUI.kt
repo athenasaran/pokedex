@@ -30,11 +30,6 @@ private fun generateImagesRegions(romanNumber: String): List<String> {
     val romanNumberLower = romanNumber.lowercase(Locale.ROOT)
     val type = generateUrl(romanNumber)
 
-//    for (i in 1..7 step 3) {
-//        images.add("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-${romanNumberLower}/$type/$i.png")
-//    }
-
-    // numero aleatorio de 1 até 100
     val random = (1..100).random()
     for (i in random..random + 2) {
         images.add("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-${romanNumberLower}/$type/$i.png")

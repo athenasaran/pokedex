@@ -17,6 +17,5 @@ dependencies {
     implementation(libs.retrofit.core)
     implementation(libs.retrofit.converter.kotlin.serialization)
     implementation(libs.logging.interceptor)
-    implementation(libs.coil)
     implementation(libs.serialization)
 }

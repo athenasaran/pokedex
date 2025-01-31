@@ -176,5 +176,11 @@ enum class PokemonType(
         colorButtonBackground = Blue100,
         colorBackground = Blue150,
         icon = R.drawable.ic_flying
-    )
+    );
+
+    companion object {
+        fun fromTypeName(typeName: String): PokemonType {
+            return entries.find { it.name.equals(typeName, ignoreCase = true) } ?: WATER
+        }
+    }
 }
