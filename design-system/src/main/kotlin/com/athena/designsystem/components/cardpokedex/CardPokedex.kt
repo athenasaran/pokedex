@@ -1,6 +1,5 @@
 package com.athena.designsystem.components.cardpokedex
 
-import android.graphics.Bitmap
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -25,30 +24,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.palette.graphics.Palette
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.allowHardware
 import coil3.toBitmap
 import com.athena.designsystem.R
-import com.athena.designsystem.components.pokemon.PokemonType
 import com.athena.designsystem.theme.Black
 import com.athena.designsystem.theme.PokedexTheme
 import com.athena.designsystem.theme.Typography
-import kotlinx.coroutines.Dispatchers
+import com.athena.designsystem.utils.extractDominantColorFromBitmap
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 @Composable
 fun CardPokedex(
     modifier: Modifier = Modifier,
-    pokemonType: List<PokemonType>,
     backgroundImage: String,
     pokemonName: String,
     pokemonNumber: String,
@@ -57,7 +51,7 @@ fun CardPokedex(
 ) {
     var isFavoriteClicked by remember { mutableStateOf(false) }
     val iconFavorite = if (isFavoriteClicked) R.drawable.ic_favorite_clicked else R.drawable.ic_favorite
-    var colorBackgroundCard by remember { mutableStateOf(pokemonType.first().colorBackground) }
+    var colorBackgroundCard by remember { mutableStateOf(Color.Gray) }
     val coroutineScope = rememberCoroutineScope()
     val context = LocalContext.current
 
@@ -135,20 +129,11 @@ fun CardPokedex(
     }
 }
 
-private suspend fun extractDominantColorFromBitmap(bitmap: Bitmap): Color {
-    return withContext(Dispatchers.Default) {
-        val palette = Palette.from(bitmap).generate()
-        val dominantColor = palette.getDominantColor(Color.Gray.toArgb())
-        return@withContext Color(dominantColor)
-    }
-}
-
 @Preview
 @Composable
 private fun CardPokedexPrev() {
     PokedexTheme {
         CardPokedex(
-            pokemonType = listOf(PokemonType.WATER, PokemonType.BUG),
             backgroundImage = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
             pokemonName = "Bulbasaur",
             pokemonNumber = "001",
