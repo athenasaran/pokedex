@@ -3,6 +3,7 @@ package com.athena.features.navigation
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -21,8 +22,17 @@ import com.athena.features.regions.presentation.view.RegionsRoute
 fun AppNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
-    startDestination: String = BottomNavItem.Pokedex.route
+    startDestination: String = BottomNavItem.Pokedex.route,
+    route: String,
+    onRouteSelected: (Boolean) -> Unit
 ) {
+    LaunchedEffect(route) {
+        when {
+            route.contains("pokemon-details") -> onRouteSelected(false)
+            else -> onRouteSelected(true)
+        }
+    }
+
     SharedTransitionLayout {
         NavHost(
             navController = navController,
@@ -33,19 +43,23 @@ fun AppNavHost(
             composable(route = BottomNavItem.Pokedex.route) {
                 PokedexRoute(viewModel = hiltViewModel(), animatedVisibilityScope = this) {
                     navController.navigate("pokemon-details/${it}")
+                    onRouteSelected(BottomNavItem.Pokedex.isBottomBarEnabled)
                 }
             }
 
             composable(route = BottomNavItem.Regions.route) {
                 RegionsRoute(hiltViewModel())
+                onRouteSelected(BottomNavItem.Regions.isBottomBarEnabled)
             }
 
             composable(route = BottomNavItem.Favorite.route) {
                 FavoriteScreen()
+                onRouteSelected(BottomNavItem.Favorite.isBottomBarEnabled)
             }
 
             composable(route = BottomNavItem.Account.route) {
                 AccountScreen()
+                onRouteSelected(BottomNavItem.Account.isBottomBarEnabled)
             }
 
             composable("pokemon-details/{pokemonName}") { backStackEntry ->
@@ -58,6 +72,7 @@ fun AppNavHost(
                 ) {
                     navController.popBackStack()
                 }
+                onRouteSelected(false)
             }
         }
     }

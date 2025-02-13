@@ -8,13 +8,14 @@ sealed class BottomNavItem(
     @DrawableRes val iconSelected: Int,
     @DrawableRes val iconUnselected: Int,
     val title: String,
-    val route: String
+    val route: String,
+    val isBottomBarEnabled: Boolean = true
 ) {
     data object Pokedex : BottomNavItem(
         title = "Pokedéx",
         route = AppNavDestinations.POKEDEX_ROUTE,
         iconSelected = R.drawable.ic_pokebola_selected,
-        iconUnselected = R.drawable.ic_pokebola,
+        iconUnselected = R.drawable.ic_pokebola
     )
 
     data object Regions : BottomNavItem(
