@@ -3,11 +3,12 @@ package com.athena.features.details.domain.model
 data class PokemonDetails(
     val id: Int,
     val name: String,
-    val height: Int,
-    val weight: Int,
-    val experience: Int,
+    val height: String,
+    val weight: String,
+    val experience: String,
     val type: List<Type>,
-    val urlImage: String
+    val urlImage: String,
+    val ability: String
 )
 
 data class Type(

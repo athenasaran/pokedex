@@ -4,6 +4,7 @@ import com.athena.features.details.data.model.PokemonInfo
 import com.athena.features.details.data.remote.api.PokemonDetailsApi
 import com.athena.features.details.domain.model.PokemonDetails
 import com.athena.features.details.domain.model.Type
+import com.athena.features.utils.upperFirstLetter
 import javax.inject.Inject
 
 class PokemonDetailsDataSource @Inject constructor(
@@ -13,11 +14,12 @@ class PokemonDetailsDataSource @Inject constructor(
 
     private fun PokemonInfo.toPokemonDetail() = PokemonDetails(
         id = id,
-        name = name,
-        height = height,
-        weight = weight,
-        experience = experience,
+        name = upperFirstLetter(name),
+        height = height.toString(),
+        weight = weight.toString(),
+        experience = experience.toString(),
         urlImage = sprites.other.officialArtwork.imageArtWork,
-        type = types.map { Type(it.type.name) }
+        type = types.map { Type(it.type.name) },
+        ability = upperFirstLetter(abilities.first().ability.abilityName)
     )
 }

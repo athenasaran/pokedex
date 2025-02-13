@@ -11,7 +11,8 @@ data class PokemonInfo(
     @SerialName("weight") val weight: Int,
     @SerialName("base_experience") val experience: Int,
     @SerialName("types") val types: List<TypeResponse>,
-    @SerialName("sprites") val sprites: Sprites
+    @SerialName("sprites") val sprites: Sprites,
+    @SerialName("abilities") val abilities: List<Abilities>
 )
 
 @Serializable
@@ -38,4 +39,14 @@ data class ArtWork(
 @Serializable
 data class OfficialArtwork(
     @SerialName("front_default") val imageArtWork: String
+)
+
+@Serializable
+data class Abilities(
+    @SerialName("ability") val ability: Ability,
+)
+
+@Serializable
+data class Ability(
+    @SerialName("name") val abilityName: String,
 )

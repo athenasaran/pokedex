@@ -9,10 +9,12 @@ import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -31,6 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
@@ -42,6 +45,7 @@ import com.athena.designsystem.components.pokemon.PokemonType
 import com.athena.designsystem.theme.Black
 import com.athena.designsystem.theme.Typography
 import com.athena.designsystem.utils.extractDominantColorFromBitmap
+import com.athena.features.R
 import com.athena.features.details.domain.model.PokemonDetails
 import com.athena.features.details.domain.model.Type
 import com.athena.features.details.presentation.intent.PokemonDetailsIntent
@@ -131,12 +135,32 @@ private fun SharedTransitionScope.PokemonDetailsContent(
             color = Black,
             modifier = Modifier.padding(start = 8.dp)
         )
-        Text(text = pokemonDetails.weight.toString())
-        Text(text = pokemonDetails.height.toString())
-        Text(text = pokemonDetails.experience.toString())
-        pokemonDetails.type.forEach { type ->
-            val category = PokemonType.fromTypeName(type.name)
-            ButtonSmallPokedex(category) { }
+        Row {
+            pokemonDetails.type.forEach { type ->
+                val category = PokemonType.fromTypeName(type.name)
+                ButtonSmallPokedex(category) { }
+            }
+        }
+
+        Row {
+            Image(painter = painterResource(R.drawable.ic_weight), contentDescription = null)
+            Text(text = "Weight")
+            Image(painter = painterResource(R.drawable.ic_height), contentDescription = null)
+            Text(text = "Height")
+        }
+        Row {
+            Text(text = "${pokemonDetails.weight} Kg", fontWeight = Typography.titleLarge.fontWeight)
+            Text(text = "${pokemonDetails.height} m", fontWeight = Typography.titleLarge.fontWeight)
+        }
+        Row {
+            Image(painter = painterResource(R.drawable.ic_bug), contentDescription = null)
+            Text(text = "Experience")
+            Image(painter = painterResource(R.drawable.ic_pokebola), contentDescription = null)
+            Text(text = "Ability")
+        }
+        Row {
+            Text(text = pokemonDetails.experience, fontWeight = Typography.titleLarge.fontWeight)
+            Text(text = pokemonDetails.ability, fontWeight = Typography.titleLarge.fontWeight)
         }
     }
 }
@@ -170,10 +194,11 @@ private fun PokemonDetailsScreenPreview() {
                     id = 1,
                     name = "bulbasaur",
                     urlImage = "",
-                    weight = 69,
-                    height = 7,
-                    experience = 64,
-                    type = listOf(Type("grass"), Type("water"))
+                    weight = "69",
+                    height = "7",
+                    experience = "64",
+                    type = listOf(Type("grass"), Type("water")),
+                    ability = "Overgrow"
                 ),
                 onClick = {}
             )

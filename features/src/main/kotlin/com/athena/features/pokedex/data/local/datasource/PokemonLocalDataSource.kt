@@ -3,6 +3,7 @@ package com.athena.features.pokedex.data.local.datasource
 import com.athena.features.pokedex.data.local.dao.PokemonDao
 import com.athena.features.pokedex.data.local.model.PokemonEntity
 import com.athena.features.pokedex.domain.model.Pokemon
+import com.athena.features.utils.upperFirstLetter
 import javax.inject.Inject
 
 class PokemonLocalDataSource @Inject constructor(
@@ -15,14 +16,14 @@ class PokemonLocalDataSource @Inject constructor(
     suspend fun getAllPokemons(page: Int) = pokemonDao.getAllPokemons(page).map { it.toModel() }
 
     private fun Pokemon.toEntity(page: Int) = PokemonEntity(
-        name = name,
+        name = upperFirstLetter(name),
         imageUrl = imageUrl,
         page = page,
         id = id
     )
 
     private fun PokemonEntity.toModel() = Pokemon(
-        name = name,
+        name = upperFirstLetter(name),
         imageUrl = imageUrl,
         id = id
     )
