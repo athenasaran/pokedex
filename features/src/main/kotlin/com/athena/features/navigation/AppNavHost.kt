@@ -3,17 +3,20 @@ package com.athena.features.navigation
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.athena.designsystem.R
+import com.athena.designsystem.components.bottombar.BottomNavItem
+import com.athena.designsystem.components.bottombar.SHOULD_DISPLAY_BOTTOM_BAR
 import com.athena.features.account.presentation.view.AccountScreen
 import com.athena.features.details.presentation.view.PokemonDetailsRoute
 import com.athena.features.favorite.presentation.view.FavoriteScreen
-import com.athena.features.home.presentation.view.BottomNavItem
 import com.athena.features.pokedex.presentation.view.PokedexRoute
 import com.athena.features.regions.presentation.view.RegionsRoute
 
@@ -22,17 +25,8 @@ import com.athena.features.regions.presentation.view.RegionsRoute
 fun AppNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
-    startDestination: String = BottomNavItem.Pokedex.route,
-    route: String,
-    onRouteSelected: (Boolean) -> Unit
+    startDestination: String = AppNavDestinations.POKEDEX_ROUTE
 ) {
-    LaunchedEffect(route) {
-        when {
-            route.contains("pokemon-details") -> onRouteSelected(false)
-            else -> onRouteSelected(true)
-        }
-    }
-
     SharedTransitionLayout {
         NavHost(
             navController = navController,
@@ -40,29 +34,30 @@ fun AppNavHost(
             modifier = modifier
         ) {
 
-            composable(route = BottomNavItem.Pokedex.route) {
+            composable(route = AppNavDestinations.POKEDEX_ROUTE) {
                 PokedexRoute(viewModel = hiltViewModel(), animatedVisibilityScope = this) {
                     navController.navigate("pokemon-details/${it}")
-                    onRouteSelected(BottomNavItem.Pokedex.isBottomBarEnabled)
                 }
             }
 
-            composable(route = BottomNavItem.Regions.route) {
+            composable(route = AppNavDestinations.REGIONS_ROUTE) {
                 RegionsRoute(hiltViewModel())
-                onRouteSelected(BottomNavItem.Regions.isBottomBarEnabled)
             }
 
-            composable(route = BottomNavItem.Favorite.route) {
+            composable(route = AppNavDestinations.FAVORITE_ROUTE) {
                 FavoriteScreen()
-                onRouteSelected(BottomNavItem.Favorite.isBottomBarEnabled)
             }
 
-            composable(route = BottomNavItem.Account.route) {
+            composable(route = AppNavDestinations.ACCOUNT_ROUTE) {
                 AccountScreen()
-                onRouteSelected(BottomNavItem.Account.isBottomBarEnabled)
             }
 
-            composable("pokemon-details/{pokemonName}") { backStackEntry ->
+            composable(route = "pokemon-details/{pokemonName}", arguments = listOf(
+                navArgument(SHOULD_DISPLAY_BOTTOM_BAR) {
+                    defaultValue = false
+                    type = NavType.BoolType
+                }
+            )) { backStackEntry ->
                 val pokemonName = backStackEntry.arguments?.getString("pokemonName")
 
                 PokemonDetailsRoute(
@@ -72,11 +67,37 @@ fun AppNavHost(
                 ) {
                     navController.popBackStack()
                 }
-                onRouteSelected(false)
             }
         }
     }
 }
+
+val bottomNavItems = listOf(
+    BottomNavItem(
+        title = "Pokedéx",
+        route = AppNavDestinations.POKEDEX_ROUTE,
+        iconSelected = R.drawable.ic_pokebola_selected,
+        iconUnselected = R.drawable.ic_pokebola
+    ),
+    BottomNavItem(
+        title = "Regions",
+        route = AppNavDestinations.REGIONS_ROUTE,
+        iconSelected = R.drawable.ic_pin_selected,
+        iconUnselected = R.drawable.ic_pokepin,
+    ),
+    BottomNavItem(
+        title = "Favorite",
+        route = AppNavDestinations.FAVORITE_ROUTE,
+        iconSelected = R.drawable.ic_heart_selected,
+        iconUnselected = R.drawable.ic_pokeheart
+    ),
+    BottomNavItem(
+        title = "Account",
+        route = AppNavDestinations.ACCOUNT_ROUTE,
+        iconSelected = R.drawable.ic_person_selected,
+        iconUnselected = R.drawable.ic_person,
+    )
+)
 
 internal object AppNavDestinations {
     const val POKEDEX_ROUTE = "pokedex"

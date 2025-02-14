@@ -1,5 +1,6 @@
-package com.athena.features.home.presentation.view
+package com.athena.designsystem.components.bottombar
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
@@ -12,7 +13,9 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -21,18 +24,24 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.athena.designsystem.theme.Blue100
 
-@Composable
-fun BottomBar(navController: NavController) {
-    val items = listOf(
-        BottomNavItem.Pokedex,
-        BottomNavItem.Regions,
-        BottomNavItem.Favorite,
-        BottomNavItem.Account
-    )
+const val SHOULD_DISPLAY_BOTTOM_BAR = "should_display_bottom_bar"
 
-    NavigationBar {
-        items.forEach { item ->
-            NavigationItem(item = item, navController = navController)
+@Composable
+fun BottomBar(
+    navController: NavController,
+    items: List<BottomNavItem>
+) {
+    var showBottomBar by remember { mutableStateOf(true) }
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination
+    currentDestination?.arguments?.get(SHOULD_DISPLAY_BOTTOM_BAR)?.defaultValue.let {
+        showBottomBar = it as? Boolean ?: true
+    }
+    AnimatedVisibility(showBottomBar) {
+        NavigationBar {
+            items.forEach { item ->
+                NavigationItem(item = item, navController = navController)
+            }
         }
     }
 }
