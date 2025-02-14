@@ -11,9 +11,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.athena.designsystem.R
 import com.athena.designsystem.components.bottombar.BottomNavItem
 import com.athena.designsystem.components.bottombar.SHOULD_DISPLAY_BOTTOM_BAR
+import com.athena.designsystem.utils.DesignSystemDrawableRes
 import com.athena.features.account.presentation.view.AccountScreen
 import com.athena.features.details.presentation.view.PokemonDetailsRoute
 import com.athena.features.favorite.presentation.view.FavoriteScreen
@@ -76,26 +76,26 @@ val bottomNavItems = listOf(
     BottomNavItem(
         title = "Pokedéx",
         route = AppNavDestinations.POKEDEX_ROUTE,
-        iconSelected = R.drawable.ic_pokebola_selected,
-        iconUnselected = R.drawable.ic_pokebola
+        iconSelected = DesignSystemDrawableRes.ic_pokebola_selected,
+        iconUnselected = DesignSystemDrawableRes.ic_pokebola
     ),
     BottomNavItem(
         title = "Regions",
         route = AppNavDestinations.REGIONS_ROUTE,
-        iconSelected = R.drawable.ic_pin_selected,
-        iconUnselected = R.drawable.ic_pokepin,
+        iconSelected = DesignSystemDrawableRes.ic_pin_selected,
+        iconUnselected = DesignSystemDrawableRes.ic_pokepin,
     ),
     BottomNavItem(
         title = "Favorite",
         route = AppNavDestinations.FAVORITE_ROUTE,
-        iconSelected = R.drawable.ic_heart_selected,
-        iconUnselected = R.drawable.ic_pokeheart
+        iconSelected = DesignSystemDrawableRes.ic_heart_selected,
+        iconUnselected = DesignSystemDrawableRes.ic_pokeheart
     ),
     BottomNavItem(
         title = "Account",
         route = AppNavDestinations.ACCOUNT_ROUTE,
-        iconSelected = R.drawable.ic_person_selected,
-        iconUnselected = R.drawable.ic_person,
+        iconSelected = DesignSystemDrawableRes.ic_person_selected,
+        iconUnselected = DesignSystemDrawableRes.ic_person,
     )
 )
 
