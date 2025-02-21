@@ -1,5 +1,6 @@
 package com.athena.network.di
 
+import com.athena.network.BuildConfig
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -46,7 +47,7 @@ class NetworkModule {
         return Retrofit.Builder()
             .addConverterFactory(convertFactory)
             .client(okHttpClient)
-            .baseUrl("https://pokeapi.co/api/v2/")
+            .baseUrl(BuildConfig.BASE_URL)
             .build()
     }
 }
