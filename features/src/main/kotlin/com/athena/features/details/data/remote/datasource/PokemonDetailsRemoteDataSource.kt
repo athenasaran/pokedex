@@ -7,7 +7,7 @@ import com.athena.features.details.domain.model.Type
 import com.athena.features.utils.upperFirstLetter
 import javax.inject.Inject
 
-class PokemonDetailsDataSource @Inject constructor(
+class PokemonDetailsRemoteDataSource @Inject constructor(
     private val pokemonDetailsApi: PokemonDetailsApi
 ) {
     suspend fun getPokemonDetails(name: String) = pokemonDetailsApi.getDetailsPokemon(name).toPokemonDetail()
