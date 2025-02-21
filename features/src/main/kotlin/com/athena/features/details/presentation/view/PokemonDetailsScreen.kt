@@ -9,16 +9,19 @@ import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -34,8 +37,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.allowHardware
@@ -44,8 +49,8 @@ import com.athena.designsystem.components.button.ButtonSmallPokedex
 import com.athena.designsystem.components.pokemon.PokemonType
 import com.athena.designsystem.theme.Black
 import com.athena.designsystem.theme.Typography
+import com.athena.designsystem.utils.DesignSystemDrawableRes
 import com.athena.designsystem.utils.extractDominantColorFromBitmap
-import com.athena.features.R
 import com.athena.features.details.domain.model.PokemonDetails
 import com.athena.features.details.domain.model.Type
 import com.athena.features.details.presentation.intent.PokemonDetailsIntent
@@ -86,6 +91,8 @@ private fun SharedTransitionScope.PokemonDetailsContent(
     var colorBackgroundCard by remember { mutableStateOf(Color.Gray) }
     val coroutineScope = rememberCoroutineScope()
     val context = LocalContext.current
+    var isFavoriteClicked by remember { mutableStateOf(false) }
+    val iconFavorite = if (isFavoriteClicked) DesignSystemDrawableRes.ic_favorite_clicked else DesignSystemDrawableRes.ic_favorite
 
     Column(
         modifier = modifier
@@ -103,11 +110,21 @@ private fun SharedTransitionScope.PokemonDetailsContent(
             Modifier
                 .background(colorBackgroundCard)
                 .fillMaxWidth(),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.TopEnd
         ) {
+            Icon(
+                painter = painterResource(id = iconFavorite),
+                contentDescription = null,
+                modifier = Modifier
+                    .padding(8.dp)
+                    .clickable {
+                        isFavoriteClicked = !isFavoriteClicked
+                    }
+            )
             AsyncImage(
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
+                    .align(Alignment.Center)
                     .padding(vertical = 36.dp)
                     .size(150.dp),
                 model = ImageRequest.Builder(context)
@@ -141,27 +158,51 @@ private fun SharedTransitionScope.PokemonDetailsContent(
                 ButtonSmallPokedex(category) { }
             }
         }
+        DetailsBox(pokemonDetails)
+    }
+}
 
-        Row {
-            Image(painter = painterResource(R.drawable.ic_weight), contentDescription = null)
-            Text(text = "Weight")
-            Image(painter = painterResource(R.drawable.ic_height), contentDescription = null)
-            Text(text = "Height")
+@Composable
+fun DetailsBox(pokemonDetails: PokemonDetails) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth(),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(32.dp),
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            DetailsItem(label = "Weight", value = "${pokemonDetails.weight} Kg", iconRes = DesignSystemDrawableRes.ic_weight)
+            DetailsItem(label = "Height", value = "${pokemonDetails.height} m", iconRes = DesignSystemDrawableRes.ic_height)
         }
-        Row {
-            Text(text = "${pokemonDetails.weight} Kg", fontWeight = Typography.titleLarge.fontWeight)
-            Text(text = "${pokemonDetails.height} m", fontWeight = Typography.titleLarge.fontWeight)
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            DetailsItem(label = "Experience", value = pokemonDetails.experience, iconRes = DesignSystemDrawableRes.ic_experience)
+            DetailsItem(label = "Ability", value = pokemonDetails.ability, iconRes = DesignSystemDrawableRes.ic_pokebola)
         }
-        Row {
-            Image(painter = painterResource(R.drawable.ic_bug), contentDescription = null)
-            Text(text = "Experience")
-            Image(painter = painterResource(R.drawable.ic_pokebola), contentDescription = null)
-            Text(text = "Ability")
+    }
+}
+
+
+@Composable
+fun DetailsItem(label: String, value: String, iconRes: Int) {
+    Column(
+        modifier = Modifier
+            .padding(8.dp),
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Icon(
+                painter = painterResource(id = iconRes),
+                contentDescription = null,
+                modifier = Modifier.size(20.dp)
+            )
+            Spacer(modifier = Modifier.width(4.dp))
+            Text(text = label, fontSize = 12.sp, fontWeight = FontWeight.Light)
         }
-        Row {
-            Text(text = pokemonDetails.experience, fontWeight = Typography.titleLarge.fontWeight)
-            Text(text = pokemonDetails.ability, fontWeight = Typography.titleLarge.fontWeight)
-        }
+        Text(text = value, fontSize = 16.sp, fontWeight = FontWeight.Bold)
     }
 }
 
