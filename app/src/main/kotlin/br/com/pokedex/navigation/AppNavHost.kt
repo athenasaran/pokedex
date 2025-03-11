@@ -1,4 +1,4 @@
-package com.athena.features.navigation
+package br.com.pokedex.navigation
 
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionLayout
