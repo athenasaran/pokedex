@@ -15,7 +15,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.athena.designsystem.components.cardpokedex.CardPokedex
-import com.athena.features.pokedex.domain.model.Pokemon
+import com.athena.domain.model.pokedex.Pokemon
 import com.athena.features.pokedex.presentation.intent.PokedexIntent
 import com.athena.features.pokedex.presentation.state.PokedexState
 import com.athena.features.pokedex.presentation.viewmodel.PokemonViewModel

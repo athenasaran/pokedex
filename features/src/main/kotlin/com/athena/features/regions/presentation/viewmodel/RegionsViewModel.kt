@@ -2,7 +2,7 @@ package com.athena.features.regions.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.athena.features.regions.domain.usecase.RegionUseCase
+import com.athena.domain.usecase.regions.RegionUseCase
 import com.athena.features.regions.presentation.model.toUI
 import com.athena.features.regions.presentation.state.RegionsUiState
 import dagger.hilt.android.lifecycle.HiltViewModel

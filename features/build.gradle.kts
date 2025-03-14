@@ -28,6 +28,7 @@ dependencies {
 
     implementation(project(":design-system"))
     implementation(project(":network"))
+    implementation(project(":domain"))
 
     testImplementation(project(":testing"))
 }

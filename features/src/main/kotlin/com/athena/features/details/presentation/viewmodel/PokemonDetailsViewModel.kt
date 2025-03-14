@@ -1,8 +1,8 @@
 package com.athena.features.details.presentation.viewmodel
 
 import androidx.lifecycle.viewModelScope
+import com.athena.domain.usecase.details.PokemonDetailsUseCase
 import com.athena.features.PokeViewModel
-import com.athena.features.details.domain.usecase.PokemonDetailsUseCase
 import com.athena.features.details.presentation.intent.PokemonDetailsIntent
 import com.athena.features.details.presentation.state.PokemonDetailsState
 import dagger.hilt.android.lifecycle.HiltViewModel

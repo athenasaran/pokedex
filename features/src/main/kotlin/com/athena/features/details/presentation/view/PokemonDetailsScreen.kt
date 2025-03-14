@@ -51,8 +51,8 @@ import com.athena.designsystem.theme.Black
 import com.athena.designsystem.theme.Typography
 import com.athena.designsystem.utils.DesignSystemDrawableRes
 import com.athena.designsystem.utils.extractDominantColorFromBitmap
-import com.athena.features.details.domain.model.PokemonDetails
-import com.athena.features.details.domain.model.Type
+import com.athena.domain.model.details.PokemonDetails
+import com.athena.domain.model.details.Type
 import com.athena.features.details.presentation.intent.PokemonDetailsIntent
 import com.athena.features.details.presentation.state.PokemonDetailsState
 import com.athena.features.details.presentation.viewmodel.PokemonDetailsViewModel

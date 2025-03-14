@@ -1,7 +1,7 @@
 package com.athena.features.details.presentation.state
 
+import com.athena.domain.model.details.PokemonDetails
 import com.athena.features.ScreenState
-import com.athena.features.details.domain.model.PokemonDetails
 
 data class PokemonDetailsState(
     val pokemonDetails: PokemonDetails? = null,

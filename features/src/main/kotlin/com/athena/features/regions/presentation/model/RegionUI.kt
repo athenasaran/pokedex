@@ -2,7 +2,7 @@ package com.athena.features.regions.presentation.model
 
 import androidx.annotation.DrawableRes
 import com.athena.designsystem.R
-import com.athena.features.regions.domain.model.Region
+import com.athena.domain.model.regions.Region
 import java.util.Locale
 
 data class RegionUI(
