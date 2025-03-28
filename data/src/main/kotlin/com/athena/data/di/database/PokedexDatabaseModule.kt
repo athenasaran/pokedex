@@ -1,9 +1,7 @@
-package com.athena.data.di
+package com.athena.data.di.database
 
 import android.app.Application
 import androidx.room.Room
-import com.athena.data.local.details.dao.PokemonDetailsDao
-import com.athena.data.local.pokedex.dao.PokemonDao
 import com.athena.data.local.pokedex.database.PokemonDatabase
 import dagger.Module
 import dagger.Provides
@@ -23,17 +21,5 @@ class PokedexDatabaseModule {
             .databaseBuilder(application, PokemonDatabase::class.java, "Pokedex.db")
             .fallbackToDestructiveMigration()
             .build()
-    }
-
-    @Provides
-    @Singleton
-    fun providePokemonDao(appDatabase: PokemonDatabase): PokemonDao {
-        return appDatabase.pokemonDao()
-    }
-
-    @Provides
-    @Singleton
-    fun providePokemonDetailsDao(appDatabase: PokemonDatabase): PokemonDetailsDao {
-        return appDatabase.pokemonDetailsDao()
     }
 }
