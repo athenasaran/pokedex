@@ -47,7 +47,7 @@ fun BottomBar(
 }
 
 @Composable
-fun RowScope.NavigationItem(item: BottomNavItem, navController: NavController) {
+private fun RowScope.NavigationItem(item: BottomNavItem, navController: NavController) {
     val selected = navController.getCurrentRoute() == item.route
     val animatedSize by animateDpAsState(
         targetValue = if (selected) 30.dp else 25.dp,
@@ -74,7 +74,7 @@ fun RowScope.NavigationItem(item: BottomNavItem, navController: NavController) {
 }
 
 @Composable
-fun navigate(item: BottomNavItem, navController: NavController): (() -> Unit) = {
+private fun navigate(item: BottomNavItem, navController: NavController): (() -> Unit) = {
     navController.navigate(item.route) {
         navController.graph.startDestinationRoute?.let { route ->
             popUpTo(route) { saveState = true }
