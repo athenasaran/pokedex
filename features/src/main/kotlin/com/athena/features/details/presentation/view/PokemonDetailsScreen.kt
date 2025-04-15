@@ -163,7 +163,7 @@ private fun SharedTransitionScope.PokemonDetailsContent(
 }
 
 @Composable
-fun DetailsBox(pokemonDetails: PokemonDetails) {
+private fun DetailsBox(pokemonDetails: PokemonDetails) {
     Column(
         modifier = Modifier
             .fillMaxWidth(),
@@ -188,7 +188,7 @@ fun DetailsBox(pokemonDetails: PokemonDetails) {
 
 
 @Composable
-fun DetailsItem(label: String, value: String, iconRes: Int) {
+private fun DetailsItem(label: String, value: String, iconRes: Int) {
     Column(
         modifier = Modifier
             .padding(8.dp),
