@@ -1,5 +1,8 @@
 package com.athena.designsystem.components.cardpokedex
 
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -24,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -38,6 +42,7 @@ import com.athena.designsystem.theme.Black
 import com.athena.designsystem.theme.PokedexTheme
 import com.athena.designsystem.theme.Typography
 import com.athena.designsystem.utils.extractDominantColorFromBitmap
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Composable
@@ -54,6 +59,12 @@ fun CardPokedex(
     var colorBackgroundCard by remember { mutableStateOf(Color.Gray) }
     val coroutineScope = rememberCoroutineScope()
     val context = LocalContext.current
+
+    var isImageClicked by remember { mutableStateOf(false) }
+    val scale by animateFloatAsState(
+        targetValue = if (isImageClicked) 1.2f else 1f,
+        animationSpec = tween(durationMillis = 300, easing = FastOutSlowInEasing)
+    )
 
     Box(
         modifier = with(modifier) {
@@ -119,9 +130,19 @@ fun CardPokedex(
                     contentDescription = null,
                     modifier = Modifier
                         .size(30.dp)
+                        .graphicsLayer {
+                            scaleX = scale
+                            scaleY = scale
+                        }
                         .clickable {
+                            isImageClicked = true
                             onClickFavorite()
                             isFavoriteClicked = !isFavoriteClicked
+
+                            coroutineScope.launch {
+                                delay(300)
+                                isImageClicked = false
+                            }
                         }
                 )
             }
