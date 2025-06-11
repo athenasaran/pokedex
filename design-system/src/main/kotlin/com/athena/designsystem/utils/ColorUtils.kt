@@ -10,7 +10,7 @@ import kotlinx.coroutines.withContext
 suspend fun extractDominantColorFromBitmap(bitmap: Bitmap): Color {
     return withContext(Dispatchers.Default) {
         val palette = Palette.from(bitmap).generate()
-        val dominantColor = palette.getDominantColor(Color.Gray.toArgb())
-        return@withContext Color(dominantColor)
+        val mutedColor = palette.getMutedColor(palette.getDominantColor(Color.Gray.toArgb()))
+        return@withContext Color(mutedColor)
     }
 }
