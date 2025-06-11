@@ -1,8 +1,8 @@
 package com.athena.data.di.pokedex
 
 import com.athena.data.remote.pokedex.api.PokemonApi
-import com.athena.data.repository.pokedex.PokemonRepositoryImpl
-import com.athena.domain.repository.pokedex.PokemonRepository
+import com.athena.data.repository.pokedex.PokedexRepositoryImpl
+import com.athena.domain.repository.pokedex.PokedexRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -20,7 +20,7 @@ interface PokedexModule {
     }
 
     @Binds
-    fun providePokemonRepository(
-        pokemonRepositoryImpl: PokemonRepositoryImpl
-    ): PokemonRepository
+    fun providePokedexRepository(
+        pokedexRepositoryImpl: PokedexRepositoryImpl
+    ): PokedexRepository
 }
