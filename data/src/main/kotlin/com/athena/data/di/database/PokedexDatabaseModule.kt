@@ -2,7 +2,7 @@ package com.athena.data.di.database
 
 import android.app.Application
 import androidx.room.Room
-import com.athena.data.local.pokedex.database.PokemonDatabase
+import com.athena.data.local.database.PokemonDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

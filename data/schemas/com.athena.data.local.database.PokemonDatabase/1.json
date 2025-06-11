@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "48272101bcfb55a222f58237b7a6bb88",
+    "identityHash": "d4b754944ca458f98a68c7fbc9d0f14b",
     "entities": [
       {
         "tableName": "PokemonEntity",
@@ -145,12 +145,44 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "favorites",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`pokemonName` TEXT NOT NULL, PRIMARY KEY(`pokemonName`), FOREIGN KEY(`pokemonName`) REFERENCES `PokemonEntity`(`name`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "pokemonName",
+            "columnName": "pokemonName",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "pokemonName"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "PokemonEntity",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "pokemonName"
+            ],
+            "referencedColumns": [
+              "name"
+            ]
+          }
+        ]
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '48272101bcfb55a222f58237b7a6bb88')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd4b754944ca458f98a68c7fbc9d0f14b')"
     ]
   }
 }

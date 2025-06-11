@@ -1,8 +1,8 @@
 package com.athena.data.di.dao
 
+import com.athena.data.local.database.PokemonDatabase
 import com.athena.data.local.details.dao.PokemonDetailsDao
 import com.athena.data.local.pokedex.dao.PokemonDao
-import com.athena.data.local.pokedex.database.PokemonDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
