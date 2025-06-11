@@ -76,8 +76,8 @@ val bottomNavItems = listOf(
     BottomNavItem(
         title = "Pokedéx",
         route = AppNavDestinations.POKEDEX_ROUTE,
-        iconSelected = DesignSystemDrawableRes.ic_pokebola_selected,
-        iconUnselected = DesignSystemDrawableRes.ic_pokebola
+        iconSelected = DesignSystemDrawableRes.ic_pokeball_selected,
+        iconUnselected = DesignSystemDrawableRes.ic_pokeball
     ),
     BottomNavItem(
         title = "Regions",
