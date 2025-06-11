@@ -9,6 +9,7 @@ import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -112,7 +113,7 @@ private fun SharedTransitionScope.PokemonDetailsContent(
                 .fillMaxWidth(),
             contentAlignment = Alignment.TopEnd
         ) {
-            Icon(
+            Image(
                 painter = painterResource(id = iconFavorite),
                 contentDescription = null,
                 modifier = Modifier
@@ -181,7 +182,11 @@ private fun DetailsBox(pokemonDetails: PokemonDetails) {
             modifier = Modifier.fillMaxWidth()
         ) {
             DetailsItem(label = "Experience", value = pokemonDetails.experience, iconRes = DesignSystemDrawableRes.ic_experience)
-            DetailsItem(label = "Ability", value = pokemonDetails.ability, iconRes = DesignSystemDrawableRes.ic_pokebola)
+            DetailsItem(
+                label = "Ability",
+                value = pokemonDetails.ability,
+                iconRes = DesignSystemDrawableRes.ic_pokeball
+            )
         }
     }
 }
