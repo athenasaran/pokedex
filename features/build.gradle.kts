@@ -11,7 +11,20 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.athena.android_testing.runner.ApplicationTestRunner"
+    }
+
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+        animationsDisabled = true
+    }
+
+    packaging {
+        resources {
+            excludes += setOf("META-INF/DEPENDENCIES")
+        }
     }
 }
 
@@ -31,4 +44,6 @@ dependencies {
     implementation(project(":domain"))
 
     testImplementation(project(":testing"))
+    androidTestImplementation(project(":android-testing"))
+    debugImplementation(libs.androidx.ui.test.manifest)
 }
