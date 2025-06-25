@@ -63,7 +63,7 @@ fun AppNavHost(
                 PokemonDetailsRoute(
                     viewModel = hiltViewModel(),
                     animatedVisibilityScope = this,
-                    pokemonId = pokemonName ?: "bulbasaur"
+                    pokemonName = pokemonName ?: "bulbasaur"
                 ) {
                     navController.popBackStack()
                 }

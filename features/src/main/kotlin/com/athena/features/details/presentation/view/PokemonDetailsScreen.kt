@@ -215,7 +215,7 @@ private fun DetailsItem(label: String, value: String, iconRes: Int) {
 fun SharedTransitionScope.PokemonDetailsRoute(
     viewModel: PokemonDetailsViewModel,
     animatedVisibilityScope: AnimatedVisibilityScope,
-    pokemonId: String,
+    pokemonName: String,
     onClick: () -> Unit
 ) {
     val state by viewModel.screenState.collectAsState()
@@ -225,7 +225,7 @@ fun SharedTransitionScope.PokemonDetailsRoute(
         onIntent = viewModel::handleIntent,
         animatedVisibilityScope = animatedVisibilityScope,
         onClick = onClick,
-        pokemonName = pokemonId
+        pokemonName = pokemonName
     )
 }
 
