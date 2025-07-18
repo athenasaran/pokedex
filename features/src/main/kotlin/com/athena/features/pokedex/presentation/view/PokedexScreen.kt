@@ -76,7 +76,15 @@ fun SharedTransitionScope.PokedexScreen(
                         backgroundImage = pokemon.imageUrl,
                         pokemonNumber = pokemon.id,
                         pokemonName = pokemon.name,
-                        onClickFavorite = {}
+                        isFavorite = pokemon.isFavorite,
+                        onClickFavorite = { isFavorite ->
+                            onIntent(
+                                PokedexIntent.OnFavoriteClick(
+                                    pokemonName = pokemon.name,
+                                    isFavorite = isFavorite
+                                )
+                            )
+                        }
                     ) {
                         onItemClicked(pokemon.name)
                     }

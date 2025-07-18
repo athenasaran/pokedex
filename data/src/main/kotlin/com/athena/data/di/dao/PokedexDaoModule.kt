@@ -2,6 +2,7 @@ package com.athena.data.di.dao
 
 import com.athena.data.local.database.PokemonDatabase
 import com.athena.data.local.details.dao.PokemonDetailsDao
+import com.athena.data.local.favorite.dao.FavoriteDAO
 import com.athena.data.local.pokedex.dao.PokemonDao
 import dagger.Module
 import dagger.Provides
@@ -19,5 +20,10 @@ class PokedexDaoModule {
     @Provides
     fun providePokemonDetailsDao(appDatabase: PokemonDatabase): PokemonDetailsDao {
         return appDatabase.pokemonDetailsDao()
+    }
+
+    @Provides
+    fun provideFavoriteDao(appDatabase: PokemonDatabase): FavoriteDAO {
+        return appDatabase.favoriteDao()
     }
 }

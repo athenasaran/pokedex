@@ -10,9 +10,10 @@ import javax.inject.Inject
 class PokemonDetailsRemoteDataSource @Inject constructor(
     private val pokemonDetailsApi: PokemonDetailsApi
 ) {
-    suspend fun getPokemonDetails(name: String) = pokemonDetailsApi.getDetailsPokemon(name.lowercase()).toPokemonDetail()
+    suspend fun getPokemonDetails(name: String, isFavorite: Boolean) =
+        pokemonDetailsApi.getDetailsPokemon(name.lowercase()).toPokemonDetail(isFavorite)
 
-    private fun PokemonInfo.toPokemonDetail() = PokemonDetails(
+    private fun PokemonInfo.toPokemonDetail(isFavorite: Boolean) = PokemonDetails(
         id = id,
         name = upperFirstLetter(name),
         height = height.toString(),
@@ -20,6 +21,7 @@ class PokemonDetailsRemoteDataSource @Inject constructor(
         experience = experience.toString(),
         urlImage = sprites.other.officialArtwork.imageArtWork,
         type = types.map { Type(it.type.name) },
-        ability = upperFirstLetter(abilities.first().ability.abilityName)
+        ability = upperFirstLetter(abilities.first().ability.abilityName),
+        isFavorite = isFavorite
     )
 }

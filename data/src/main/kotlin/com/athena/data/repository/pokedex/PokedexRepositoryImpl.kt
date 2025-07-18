@@ -14,8 +14,8 @@ class PokedexRepositoryImpl @Inject constructor(
 ) : PokedexRepository {
     override fun getPokemons(page: Int): Flow<List<Pokemon>> {
         return flow {
-            val localPageList = pokemonLocalDataSource.getPokemons(page)
-            if (localPageList.isEmpty()) {
+            val localPageList = pokemonLocalDataSource.getPokemonsInPage(page)
+            if (localPageList <= 0) {
                 val remoteList = pokemonRemoteDataSource.getPokemons(page)
                 pokemonLocalDataSource.insertAll(remoteList, page)
             }

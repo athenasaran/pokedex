@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -51,20 +52,25 @@ fun CardPokedex(
     backgroundImage: String,
     pokemonName: String,
     pokemonNumber: String,
-    onClickFavorite: () -> Unit,
+    isFavorite: Boolean,
+    onClickFavorite: (Boolean) -> Unit,
     onCardClick: () -> Unit
 ) {
     var isFavoriteClicked by remember { mutableStateOf(false) }
-    val iconFavorite = if (isFavoriteClicked) R.drawable.ic_favorite_clicked else R.drawable.ic_favorite
     var colorBackgroundCard by remember { mutableStateOf(Color.Gray) }
+    val iconFavorite = if (isFavoriteClicked) R.drawable.ic_favorite_clicked else R.drawable.ic_favorite
+    var isImageClicked by remember { mutableStateOf(false) }
     val coroutineScope = rememberCoroutineScope()
     val context = LocalContext.current
 
-    var isImageClicked by remember { mutableStateOf(false) }
     val scale by animateFloatAsState(
         targetValue = if (isImageClicked) 1.2f else 1f,
         animationSpec = tween(durationMillis = 300, easing = FastOutSlowInEasing)
     )
+
+    LaunchedEffect(isFavorite) {
+        isFavoriteClicked = isFavorite
+    }
 
     Box(
         modifier = with(modifier) {
@@ -136,8 +142,8 @@ fun CardPokedex(
                         }
                         .clickable {
                             isImageClicked = true
-                            onClickFavorite()
                             isFavoriteClicked = !isFavoriteClicked
+                            onClickFavorite(isFavoriteClicked)
 
                             coroutineScope.launch {
                                 delay(300)
@@ -158,6 +164,7 @@ private fun CardPokedexPrev() {
             backgroundImage = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
             pokemonName = "Bulbasaur",
             pokemonNumber = "001",
+            isFavorite = true,
             onClickFavorite = {},
             onCardClick = {}
         )

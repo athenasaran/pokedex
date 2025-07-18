@@ -11,7 +11,7 @@ import javax.inject.Inject
 class PokemonDetailsLocalDataSource @Inject constructor(
     private val pokemonDetailsDao: PokemonDetailsDao
 ) {
-    suspend fun getPokemonDetails(name: String): PokemonDetails? {
+    suspend fun getPokemonDetails(name: String, isFavorite: Boolean): PokemonDetails? {
         return pokemonDetailsDao.getPokemonDetails(name)?.let {
             PokemonDetails(
                 id = it.pokemonDetailsEntity.id,
@@ -21,7 +21,8 @@ class PokemonDetailsLocalDataSource @Inject constructor(
                 experience = it.pokemonDetailsEntity.experience,
                 urlImage = it.pokemonDetailsEntity.urlImage,
                 type = it.typesEntity.map { type -> Type(type.name) },
-                ability = it.abilitiesEntity.name
+                ability = it.abilitiesEntity.name,
+                isFavorite = isFavorite
             )
         }
     }

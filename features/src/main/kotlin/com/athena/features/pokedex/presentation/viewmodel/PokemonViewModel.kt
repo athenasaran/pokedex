@@ -2,6 +2,7 @@ package com.athena.features.pokedex.presentation.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
+import com.athena.domain.usecase.favorite.UpdateFavoriteUseCase
 import com.athena.domain.usecase.pokedex.PokedexUseCase
 import com.athena.features.PokeViewModel
 import com.athena.features.pokedex.presentation.intent.PokedexIntent
@@ -17,7 +18,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PokemonViewModel @Inject constructor(
-    private val pokedexUseCase: PokedexUseCase
+    private val pokedexUseCase: PokedexUseCase,
+    private val updateFavoriteUseCase: UpdateFavoriteUseCase
 ) : PokeViewModel<PokedexState>(PokedexState()) {
 
     private var currentPage = 0
@@ -25,6 +27,10 @@ class PokemonViewModel @Inject constructor(
     fun handleIntent(intent: PokedexIntent) = viewModelScope.launch {
         when (intent) {
             is PokedexIntent.OnInitScreen -> getPokemons(currentPage)
+            is PokedexIntent.OnFavoriteClick -> updateFavoriteUseCase(
+                intent.pokemonName,
+                intent.isFavorite
+            )
             is PokedexIntent.LoadMorePokemons -> getPokemons(++currentPage)
             is PokedexIntent.Retry -> getPokemons(currentPage)
         }

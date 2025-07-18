@@ -2,13 +2,14 @@ package com.athena.data.local.pokedex.datasource
 
 import com.athena.data.local.pokedex.dao.PokemonDao
 import com.athena.data.local.pokedex.model.PokemonEntity
+import com.athena.data.local.pokedex.model.PokemonHomeDTO
 import com.athena.domain.model.pokedex.Pokemon
 import javax.inject.Inject
 
 class PokemonLocalDataSource @Inject constructor(
     private val pokemonDao: PokemonDao
 ) {
-    suspend fun getPokemons(page: Int) = pokemonDao.getPokemons(page).map { it.toModel() }
+    suspend fun getPokemonsInPage(page: Int) = pokemonDao.getPokemons(page)
 
     suspend fun insertAll(pokemons: List<Pokemon>, page: Int) = pokemonDao.insertAll(pokemons.map { it.toEntity(page) })
 
@@ -21,9 +22,10 @@ class PokemonLocalDataSource @Inject constructor(
         id = id
     )
 
-    private fun PokemonEntity.toModel() = Pokemon(
+    private fun PokemonHomeDTO.toModel() = Pokemon(
         name = name,
         imageUrl = imageUrl,
+        isFavorite = isFavorite,
         id = id
     )
 }

@@ -8,7 +8,8 @@ data class PokemonDetails(
     val experience: String,
     val type: List<Type>,
     val urlImage: String,
-    val ability: String
+    val ability: String,
+    val isFavorite: Boolean
 )
 
 data class Type(

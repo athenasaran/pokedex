@@ -77,7 +77,8 @@ private fun SharedTransitionScope.PokemonDetailsScreen(
             modifier = modifier,
             animatedVisibilityScope = animatedVisibilityScope,
             onClick = onClick,
-            pokemonDetails = pokemonDetails
+            pokemonDetails = pokemonDetails,
+            onIntent = onIntent
         )
     }
 }
@@ -87,12 +88,13 @@ private fun SharedTransitionScope.PokemonDetailsContent(
     modifier: Modifier = Modifier,
     animatedVisibilityScope: AnimatedVisibilityScope,
     pokemonDetails: PokemonDetails,
+    onIntent: (PokemonDetailsIntent) -> Unit,
     onClick: () -> Unit
 ) {
     var colorBackgroundCard by remember { mutableStateOf(Color.Gray) }
     val coroutineScope = rememberCoroutineScope()
     val context = LocalContext.current
-    var isFavoriteClicked by remember { mutableStateOf(false) }
+    var isFavoriteClicked by remember { mutableStateOf(pokemonDetails.isFavorite) }
     val iconFavorite = if (isFavoriteClicked) DesignSystemDrawableRes.ic_favorite_clicked else DesignSystemDrawableRes.ic_favorite
 
     Column(
@@ -120,6 +122,12 @@ private fun SharedTransitionScope.PokemonDetailsContent(
                     .padding(8.dp)
                     .clickable {
                         isFavoriteClicked = !isFavoriteClicked
+                        onIntent(
+                            PokemonDetailsIntent.OnFavoriteClick(
+                                pokemonName = pokemonDetails.name,
+                                isFavorite = isFavoriteClicked
+                            )
+                        )
                     }
             )
             AsyncImage(
@@ -244,9 +252,11 @@ private fun PokemonDetailsScreenPreview() {
                     height = "7",
                     experience = "64",
                     type = listOf(Type("grass"), Type("water")),
-                    ability = "Overgrow"
+                    ability = "Overgrow",
+                    isFavorite = true
                 ),
-                onClick = {}
+                onClick = {},
+                onIntent = {}
             )
         }
     }

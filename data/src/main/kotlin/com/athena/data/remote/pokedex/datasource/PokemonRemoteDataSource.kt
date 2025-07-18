@@ -13,7 +13,7 @@ class PokemonRemoteDataSource @Inject constructor(
     suspend fun getPokemons(offset: Int) = pokemonApi.getPokemons(LIMIT, offset * LIMIT).toPokemonList()
 
     private fun PokemonListResponse.toPokemonList() = results.map {
-        Pokemon(it.name, getImageUrl(it.url), getId(it.url))
+        Pokemon(it.name, getImageUrl(it.url), getId(it.url), false)
     }
 
     private fun getImageUrl(url: String): String {

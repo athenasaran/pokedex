@@ -6,6 +6,7 @@ import com.athena.data.local.details.dao.PokemonDetailsDao
 import com.athena.data.local.details.model.AbilityEntity
 import com.athena.data.local.details.model.PokemonDetailsEntity
 import com.athena.data.local.details.model.TypesEntity
+import com.athena.data.local.favorite.dao.FavoriteDAO
 import com.athena.data.local.favorite.model.FavoritesEntity
 import com.athena.data.local.pokedex.dao.PokemonDao
 import com.athena.data.local.pokedex.model.PokemonEntity
@@ -23,4 +24,5 @@ import com.athena.data.local.pokedex.model.PokemonEntity
 abstract class PokemonDatabase : RoomDatabase() {
     abstract fun pokemonDao(): PokemonDao
     abstract fun pokemonDetailsDao(): PokemonDetailsDao
+    abstract fun favoriteDao(): FavoriteDAO
 }

@@ -1,6 +1,6 @@
-package com.athena.domain.model.pokedex
+package com.athena.data.local.pokedex.model
 
-data class Pokemon(
+data class PokemonHomeDTO(
     val name: String,
     val imageUrl: String,
     val id: String,
