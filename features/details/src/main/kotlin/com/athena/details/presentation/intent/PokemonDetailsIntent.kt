@@ -1,4 +1,4 @@
-package com.athena.features.details.presentation.intent
+package com.athena.details.presentation.intent
 
 sealed interface PokemonDetailsIntent {
     data class OnInitScreen(val pokemonName: String) : PokemonDetailsIntent

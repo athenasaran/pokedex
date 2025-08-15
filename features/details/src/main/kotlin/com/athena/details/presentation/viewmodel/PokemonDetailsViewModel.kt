@@ -1,12 +1,12 @@
-package com.athena.features.details.presentation.viewmodel
+package com.athena.details.presentation.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
+import com.athena.details.presentation.intent.PokemonDetailsIntent
+import com.athena.details.presentation.state.PokemonDetailsState
 import com.athena.domain.usecase.details.PokemonDetailsUseCase
 import com.athena.domain.usecase.favorite.UpdateFavoriteUseCase
 import com.athena.features.PokeViewModel
-import com.athena.features.details.presentation.intent.PokemonDetailsIntent
-import com.athena.features.details.presentation.state.PokemonDetailsState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch

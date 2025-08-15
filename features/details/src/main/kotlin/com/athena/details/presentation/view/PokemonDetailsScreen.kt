@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalSharedTransitionApi::class)
 
-package com.athena.features.details.presentation.view
+package com.athena.details.presentation.view
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.AnimatedVisibilityScope
@@ -52,11 +52,11 @@ import com.athena.designsystem.theme.Black
 import com.athena.designsystem.theme.Typography
 import com.athena.designsystem.utils.DesignSystemDrawableRes
 import com.athena.designsystem.utils.extractDominantColorFromBitmap
+import com.athena.details.presentation.intent.PokemonDetailsIntent
+import com.athena.details.presentation.state.PokemonDetailsState
+import com.athena.details.presentation.viewmodel.PokemonDetailsViewModel
 import com.athena.domain.model.details.PokemonDetails
 import com.athena.domain.model.details.Type
-import com.athena.features.details.presentation.intent.PokemonDetailsIntent
-import com.athena.features.details.presentation.state.PokemonDetailsState
-import com.athena.features.details.presentation.viewmodel.PokemonDetailsViewModel
 import kotlinx.coroutines.launch
 
 @Composable
