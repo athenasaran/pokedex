@@ -1,4 +1,4 @@
-package com.athena.features.account.presentation.view
+package com.athena.account.presentation.view
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text

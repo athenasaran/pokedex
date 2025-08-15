@@ -11,10 +11,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.athena.account.presentation.view.AccountScreen
 import com.athena.designsystem.components.bottombar.BottomNavItem
 import com.athena.designsystem.components.bottombar.SHOULD_DISPLAY_BOTTOM_BAR
 import com.athena.designsystem.utils.DesignSystemDrawableRes
-import com.athena.features.account.presentation.view.AccountScreen
 import com.athena.features.details.presentation.view.PokemonDetailsRoute
 import com.athena.features.favorite.presentation.view.FavoriteScreen
 import com.athena.features.pokedex.presentation.view.PokedexRoute

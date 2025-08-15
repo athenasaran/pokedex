@@ -44,9 +44,10 @@ dependencies {
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.androidx.core.splashscreen)
-    implementation(project(":design-system"))
-    implementation(project(":features"))
-    implementation(project(":domain"))
     implementation(project(":data"))
+    implementation(project(":design-system"))
+    implementation(project(":domain"))
+    implementation(project(":features"))
+    implementation(project(":features:account"))
     debugImplementation(libs.androidx.ui.test.manifest)
 }
