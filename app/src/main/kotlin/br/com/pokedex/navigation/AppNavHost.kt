@@ -15,10 +15,10 @@ import com.athena.account.presentation.view.AccountScreen
 import com.athena.designsystem.components.bottombar.BottomNavItem
 import com.athena.designsystem.components.bottombar.SHOULD_DISPLAY_BOTTOM_BAR
 import com.athena.designsystem.utils.DesignSystemDrawableRes
-import com.athena.features.details.presentation.view.PokemonDetailsRoute
-import com.athena.features.favorite.presentation.view.FavoriteScreen
-import com.athena.features.pokedex.presentation.view.PokedexRoute
-import com.athena.features.regions.presentation.view.RegionsRoute
+import com.athena.details.presentation.view.PokemonDetailsRoute
+import com.athena.favorite.presentation.view.FavoriteScreen
+import com.athena.pokedex.presentation.view.PokedexRoute
+import com.athena.regions.presentation.view.RegionsRoute
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable

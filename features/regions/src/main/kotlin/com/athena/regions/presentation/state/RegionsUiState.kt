@@ -1,6 +1,6 @@
-package com.athena.features.regions.presentation.state
+package com.athena.regions.presentation.state
 
-import com.athena.features.regions.presentation.model.RegionUI
+import com.athena.regions.presentation.model.RegionUI
 
 
 data class RegionsUiState(

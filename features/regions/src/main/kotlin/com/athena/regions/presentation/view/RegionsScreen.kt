@@ -1,4 +1,4 @@
-package com.athena.features.regions.presentation.view
+package com.athena.regions.presentation.view
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -10,8 +10,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.athena.designsystem.components.cardregions.CardRegions
 import com.athena.designsystem.components.loading.CircularLoading
-import com.athena.features.regions.presentation.state.RegionsUiState
-import com.athena.features.regions.presentation.viewmodel.RegionsViewModel
+import com.athena.regions.presentation.state.RegionsUiState
+import com.athena.regions.presentation.viewmodel.RegionsViewModel
 
 @Composable
 fun RegionsScreen(state: RegionsUiState, modifier: Modifier = Modifier) {

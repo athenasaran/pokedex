@@ -1,4 +1,4 @@
-package com.athena.features.regions.presentation.model
+package com.athena.regions.presentation.model
 
 import androidx.annotation.DrawableRes
 import com.athena.designsystem.R

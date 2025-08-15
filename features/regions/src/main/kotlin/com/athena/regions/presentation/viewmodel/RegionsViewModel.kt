@@ -1,10 +1,10 @@
-package com.athena.features.regions.presentation.viewmodel
+package com.athena.regions.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.athena.domain.usecase.regions.RegionUseCase
-import com.athena.features.regions.presentation.model.toUI
-import com.athena.features.regions.presentation.state.RegionsUiState
+import com.athena.regions.presentation.model.toUI
+import com.athena.regions.presentation.state.RegionsUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

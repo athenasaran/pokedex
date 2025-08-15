@@ -49,5 +49,9 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":features"))
     implementation(project(":features:account"))
+    implementation(project(":features:details"))
+    implementation(project(":features:favorite"))
+    implementation(project(":features:pokedex"))
+    implementation(project(":features:regions"))
     debugImplementation(libs.androidx.ui.test.manifest)
 }
