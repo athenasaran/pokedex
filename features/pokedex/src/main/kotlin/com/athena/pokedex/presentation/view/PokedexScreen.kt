@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalSharedTransitionApi::class)
 
-package com.athena.features.pokedex.presentation.view
+package com.athena.pokedex.presentation.view
 
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
@@ -29,9 +29,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.athena.designsystem.components.cardpokedex.CardPokedex
 import com.athena.domain.model.pokedex.Pokemon
-import com.athena.features.pokedex.presentation.intent.PokedexIntent
-import com.athena.features.pokedex.presentation.state.PokedexState
-import com.athena.features.pokedex.presentation.viewmodel.PokemonViewModel
+import com.athena.pokedex.presentation.intent.PokedexIntent
+import com.athena.pokedex.presentation.state.PokedexState
+import com.athena.pokedex.presentation.viewmodel.PokemonViewModel
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalSharedTransitionApi::class)

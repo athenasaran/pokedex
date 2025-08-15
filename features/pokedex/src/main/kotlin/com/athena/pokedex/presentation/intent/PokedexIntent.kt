@@ -1,4 +1,4 @@
-package com.athena.features.pokedex.presentation.intent
+package com.athena.pokedex.presentation.intent
 
 sealed interface PokedexIntent {
     data object OnInitScreen : PokedexIntent

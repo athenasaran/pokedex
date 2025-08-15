@@ -1,4 +1,4 @@
-package com.athena.features.pokedex.presentation.state
+package com.athena.pokedex.presentation.state
 
 import com.athena.domain.model.pokedex.Pokemon
 import com.athena.features.ScreenState

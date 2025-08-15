@@ -1,4 +1,4 @@
-package com.athena.features.pokedex.presentation.view
+package com.athena.pokedex.presentation.view
 
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState

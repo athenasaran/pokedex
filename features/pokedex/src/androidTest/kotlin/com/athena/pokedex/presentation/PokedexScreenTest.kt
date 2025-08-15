@@ -12,7 +12,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.athena.android_testing.activity.HiltActivity
 import com.athena.domain.model.pokedex.Pokemon
 import com.athena.domain.repository.pokedex.PokedexRepository
-import com.athena.features.pokedex.presentation.view.PokedexRoute
+import com.athena.pokedex.presentation.view.PokedexRoute
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import io.mockk.coEvery
@@ -69,7 +69,8 @@ class PokedexScreenTest {
                 Pokemon(
                     id = "1",
                     name = "Bulbasaur",
-                    imageUrl = "https://example.com/bulbasaur.png"
+                    imageUrl = "https://example.com/bulbasaur.png",
+                    isFavorite = true
                 )
             )
         )

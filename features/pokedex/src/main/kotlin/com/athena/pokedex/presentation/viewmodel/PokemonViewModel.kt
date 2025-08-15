@@ -1,12 +1,12 @@
-package com.athena.features.pokedex.presentation.viewmodel
+package com.athena.pokedex.presentation.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.athena.domain.usecase.favorite.UpdateFavoriteUseCase
 import com.athena.domain.usecase.pokedex.PokedexUseCase
 import com.athena.features.PokeViewModel
-import com.athena.features.pokedex.presentation.intent.PokedexIntent
-import com.athena.features.pokedex.presentation.state.PokedexState
+import com.athena.pokedex.presentation.intent.PokedexIntent
+import com.athena.pokedex.presentation.state.PokedexState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
