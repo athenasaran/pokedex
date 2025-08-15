@@ -1,4 +1,4 @@
-package com.athena.features.favorite.presentation.viewmodel
+package com.athena.favorite.presentation.viewmodel
 
 import javax.inject.Inject
 

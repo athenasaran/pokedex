@@ -1,4 +1,4 @@
-package com.athena.features.favorite.presentation.view
+package com.athena.favorite.presentation.view
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
