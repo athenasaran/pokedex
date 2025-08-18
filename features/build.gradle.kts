@@ -2,7 +2,6 @@ plugins {
     id("config.android.library")
     id("config.android.library.compose")
     id("config.android.hilt")
-    id("config.android.room")
     kotlin("plugin.serialization")
 }
 
