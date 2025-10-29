@@ -6,8 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.athena.designsystem.R
-import com.athena.designsystem.components.error.DefaultErrorContent
+import com.athena.designsystem.components.cardfavorite.CardFavorite
 
 @Composable
 fun FavoriteScreen(modifier: Modifier = Modifier) {
@@ -16,11 +15,18 @@ fun FavoriteScreen(modifier: Modifier = Modifier) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        DefaultErrorContent(
-            imageError = R.drawable.img_not_found_favorite,
-            title = "You haven't favorited any Pokémon :( ",
-            modifier = modifier,
-            subTitle = "Click on the heart icon of your favorite Pokémon and they will appear here."
+//        DefaultErrorContent(
+//            imageError = R.drawable.img_not_found_favorite,
+//            title = "You haven't favorited any Pokémon :( ",
+//            modifier = modifier,
+//            subTitle = "Click on the heart icon of your favorite Pokémon and they will appear here."
+//        )
+
+        CardFavorite(
+            pokemonName = "Pikachu",
+            backgroundImage = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png",
+            pokemonNumber = "25",
+            onRemove = {} // chamar a função para remover o Pokémon favorito
         )
     }
 }

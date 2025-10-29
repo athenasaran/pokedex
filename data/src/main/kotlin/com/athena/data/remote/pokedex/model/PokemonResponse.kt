@@ -1,5 +1,8 @@
+@file:OptIn(InternalSerializationApi::class)
+
 package com.athena.data.remote.pokedex.model
 
+import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
