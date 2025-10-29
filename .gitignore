@@ -12,6 +12,8 @@
 .cxx
 local.properties
 
+### Kotlin ###
+.kotlin/
 
 ### Android ###
 # Gradle files
