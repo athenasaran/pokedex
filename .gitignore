@@ -13,7 +13,7 @@
 local.properties
 
 ### Kotlin ###
-.kotlin/
+/.kotlin/
 
 ### Android ###
 # Gradle files
