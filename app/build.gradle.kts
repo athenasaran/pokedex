@@ -3,6 +3,7 @@ plugins {
     id("config.android.application.compose")
     id("config.android.hilt")
     kotlin("android")
+    alias(libs.plugins.compose)
 }
 
 android {

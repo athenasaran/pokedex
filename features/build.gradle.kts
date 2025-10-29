@@ -3,6 +3,7 @@ plugins {
     id("config.android.library.compose")
     id("config.android.hilt")
     kotlin("plugin.serialization")
+    alias(libs.plugins.compose)
 }
 
 android {

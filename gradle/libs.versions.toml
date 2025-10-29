@@ -1,5 +1,5 @@
 [versions]
-agp = "8.3.2"
+agp = "8.8.0"
 compileSdk = "34"
 kotlinSerialization = "1.6.3"
 minSdk = "26"
@@ -7,14 +7,14 @@ targetSdk = "34"
 
 androidxComposeCompiler = "1.5.8"
 androidxComposeBom = "2024.09.01"
-kotlin = "1.9.22"
+kotlin = "2.2.0"
 coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.1.5"
 espressoCore = "3.5.1"
 lifecycleRuntimeKtx = "2.8.5"
 activityCompose = "1.9.2"
-ksp = "1.9.20-1.0.14"
+ksp = "2.1.21-2.0.1"
 retrofit = "2.10.0"
 retrofit-serialization = "2.10.0"
 coroutines = "1.8.1"
@@ -40,6 +40,9 @@ coroutines-test = "1.6.0"
 androidxTestRunner = "1.6.2"
 androidxTestRules = "1.6.1"
 composeVersion = "1.5.0"
+kotlinStdlib = "2.2.0"
+kotlinTest = "2.2.0"
+core = "1.7.0"
 
 [libraries]
 build-logic-android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
@@ -94,13 +97,20 @@ androidx-test-runner = { group = "androidx.test", name = "runner", version.ref =
 androidx-test-rules = { group = "androidx.test", name = "rules", version.ref = "androidxTestRules" }
 junit-compose-ui-test = { group = "androidx.compose.ui", name = "ui-test-junit4", version.ref = "composeVersion" }
 hilt-test = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hilt" }
+kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlinStdlib" }
+kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlinTest" }
+androidx-core = { group = "androidx.test", name = "core", version.ref = "core" }
 
 [plugins]
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-androidApplication = { id = "com.android.application", version.ref = "agp" }
-jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-androidLibrary = { id = "com.android.library", version.ref = "agp" }
+android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 room = { id = "androidx.room", version.ref = "room" }
+android-kotlin-multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
+android-lint = { id = "com.android.lint", version.ref = "agp" }
 
 [bundles]
 coil-default = ["coil", "coil-netwok"]

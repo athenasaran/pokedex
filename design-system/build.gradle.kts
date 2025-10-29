@@ -1,6 +1,7 @@
 plugins {
     id("config.android.library")
     id("config.android.library.compose")
+    alias(libs.plugins.compose)
 }
 
 android {
