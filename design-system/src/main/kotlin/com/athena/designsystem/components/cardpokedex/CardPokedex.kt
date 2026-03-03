@@ -54,7 +54,7 @@ fun CardPokedex(
     pokemonNumber: String,
     isFavorite: Boolean,
     onClickFavorite: (Boolean) -> Unit,
-    onCardClick: () -> Unit
+    onCardClick: () -> Unit = {}
 ) {
     var isFavoriteClicked by remember { mutableStateOf(false) }
     var colorBackgroundCard by remember { mutableStateOf(Color.Gray) }

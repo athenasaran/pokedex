@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="favorite_empty_title">You haven\'t favorited any Pokémon :( </string>
+    <string name="favorite_empty_subtitle">Click on the heart icon of your favorite Pokémon and they will appear here.</string>
+</resources>

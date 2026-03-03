@@ -10,11 +10,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.athena.designsystem.components.cardregions.CardRegions
 import com.athena.designsystem.components.loading.CircularLoading
+import com.athena.regions.presentation.model.RegionUI
 import com.athena.regions.presentation.state.RegionsUiState
 import com.athena.regions.presentation.viewmodel.RegionsViewModel
 
 @Composable
-fun RegionsScreen(state: RegionsUiState, modifier: Modifier = Modifier) {
+private fun RegionsScreen(state: RegionsUiState, modifier: Modifier = Modifier) {
     when {
         state.isLoading -> {
             CircularLoading()
@@ -25,17 +26,24 @@ fun RegionsScreen(state: RegionsUiState, modifier: Modifier = Modifier) {
         }
 
         else -> {
-            LazyColumn {
-                items(state.regions) { region ->
-                    CardRegions(
-                        modifier = Modifier.padding(16.dp),
-                        generationRomanNumber = region.generationRomanNumeral,
-                        backgroundImage = region.backgroundImage,
-                        pokemonImages = region.pokemonImages,
-                        nameRegion = region.nameRegion
-                    )
-                }
-            }
+            RegionsContent(state.regions)
+        }
+    }
+}
+
+@Composable
+private fun RegionsContent(
+    regions: List<RegionUI>
+) {
+    LazyColumn {
+        items(regions) { region ->
+            CardRegions(
+                modifier = Modifier.padding(16.dp),
+                generationRomanNumber = region.generationRomanNumeral,
+                backgroundImage = region.backgroundImage,
+                pokemonImages = region.pokemonImages,
+                nameRegion = region.nameRegion
+            )
         }
     }
 }

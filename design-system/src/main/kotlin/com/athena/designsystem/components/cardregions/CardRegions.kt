@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.athena.designsystem.R
 import com.athena.designsystem.theme.Black
-import com.athena.designsystem.theme.Gray200
+import com.athena.designsystem.theme.Gray100
 import com.athena.designsystem.theme.PokedexTheme
 import com.athena.designsystem.theme.Typography
 import com.athena.designsystem.theme.White
@@ -77,7 +77,7 @@ fun CardRegions(
                         generationRomanNumber
                     ),
                     style = Typography.labelSmall,
-                    color = Gray200
+                    color = Gray100
                 )
             }
 

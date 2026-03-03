@@ -3,24 +3,104 @@ package com.athena.favorite.presentation.view
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.athena.designsystem.R
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.athena.designsystem.components.cardfavorite.CardFavorite
 import com.athena.designsystem.components.error.DefaultErrorContent
+import com.athena.designsystem.components.loading.CircularLoading
+import com.athena.domain.model.favorite.Favorite
+import com.athena.favorite.presentation.intent.FavoriteIntent
+import com.athena.favorite.presentation.state.FavoriteState
+import com.athena.favorite.presentation.viewmodel.FavoriteViewModel
+import com.athena.features.favorite.R
+import com.athena.designsystem.R as DesignSystemR
 
 @Composable
-fun FavoriteScreen(modifier: Modifier = Modifier) {
+private fun FavoriteScreen(
+    modifier: Modifier = Modifier,
+    onIntent: (FavoriteIntent) -> Unit,
+    state: FavoriteState
+) {
+    LaunchedEffect(Unit) {
+        onIntent(FavoriteIntent.OnInitScreen)
+    }
+
+    when {
+        state.isLoading -> {
+            CircularLoading()
+        }
+
+        state.isEmpty -> {
+            EmptyScreen()
+        }
+
+        else -> {
+            FavoriteContent(
+                modifier = modifier,
+                favorites = state.favorites,
+                onIntent = onIntent
+            )
+        }
+    }
+}
+
+@Composable
+private fun EmptyScreen(modifier: Modifier = Modifier) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         DefaultErrorContent(
-            imageError = R.drawable.img_not_found_favorite,
-            title = "You haven't favorited any Pokémon :( ",
+            imageError = DesignSystemR.drawable.img_not_found_favorite,
+            title = stringResource(R.string.favorite_empty_title),
             modifier = modifier,
-            subTitle = "Click on the heart icon of your favorite Pokémon and they will appear here."
+            subTitle = stringResource(R.string.favorite_empty_subtitle)
         )
     }
+}
+
+@Composable
+private fun FavoriteContent(
+    modifier: Modifier = Modifier,
+    favorites: List<Favorite>,
+    onIntent: (FavoriteIntent) -> Unit
+) {
+    LazyColumn(
+        modifier.padding(vertical = 8.dp, horizontal = 6.dp)
+    ) {
+        items(favorites) { favorite ->
+            CardFavorite(
+                modifier.padding(vertical = 8.dp),
+                pokemonName = favorite.name,
+                backgroundImage = favorite.imageUrl,
+                pokemonNumber = favorite.number,
+                onRemove = { name ->
+                    onIntent(FavoriteIntent.OnItemDeleted(name))
+                },
+            )
+        }
+    }
+
+}
+
+@Composable
+fun FavoriteRoute(
+    viewModel: FavoriteViewModel
+) {
+    val state by viewModel.screenState.collectAsStateWithLifecycle()
+
+    FavoriteScreen(
+        onIntent = viewModel::handleIntent,
+        state = state
+    )
 }
