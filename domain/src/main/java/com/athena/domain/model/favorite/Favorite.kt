@@ -1,6 +1,6 @@
-package com.athena.data.local.details.model
+package com.athena.domain.model.favorite
 
-data class FavoritePokemon(
+data class Favorite(
     val name: String,
     val imageUrl: String,
     val number: String

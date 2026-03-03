@@ -19,6 +19,6 @@ interface FavoriteDAO {
     @Query("SELECT count(1) FROM favorites WHERE pokemonName = :pokemonName")
     suspend fun isFavorite(pokemonName: String): Int
 
-    @Query("SELECT * FROM PokemonEntity p INNER JOIN favorites f ON p.name LIKE f.pokemonName")
+    @Query("SELECT p.name, p.imageUrl, p.id AS number FROM PokemonEntity p INNER JOIN favorites f ON p.name LIKE f.pokemonName")
     fun getAllPokemonDetailsWithFavorites(): Flow<List<FavoritePokemon>>
 }

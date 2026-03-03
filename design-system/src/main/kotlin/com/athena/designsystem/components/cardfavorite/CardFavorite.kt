@@ -1,9 +1,9 @@
 package com.athena.designsystem.components.cardfavorite
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Icon
@@ -25,34 +25,41 @@ fun CardFavorite(
     pokemonNumber: String,
     onRemove: (String) -> Unit = {}
 ) {
-    // TODO Refactor card favorite
     val swipeToDismissBoxState = rememberSwipeToDismissBoxState(
-        confirmValueChange = {
-            if (it == SwipeToDismissBoxValue.EndToStart) onRemove(pokemonName)
-            // Reset item when toggling done status
-            it != SwipeToDismissBoxValue.StartToEnd
+        confirmValueChange = { value ->
+            when (value) {
+                SwipeToDismissBoxValue.EndToStart -> {
+                    onRemove(pokemonName)
+                    true
+                }
+
+                SwipeToDismissBoxValue.StartToEnd -> false
+                else -> false
+            }
         }
     )
 
     SwipeToDismissBox(
         state = swipeToDismissBoxState,
         modifier = modifier,
+        enableDismissFromStartToEnd = false,
         backgroundContent = {
-            when (swipeToDismissBoxState.dismissDirection) {
-                SwipeToDismissBoxValue.EndToStart -> {
+            if (swipeToDismissBoxState.dismissDirection == SwipeToDismissBoxValue.EndToStart &&
+                swipeToDismissBoxState.currentValue != SwipeToDismissBoxValue.EndToStart
+            ) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(Color.Red),
+                    contentAlignment = Alignment.Center
+                ) {
                     Icon(
                         imageVector = Icons.Default.Delete,
                         contentDescription = "Remove item",
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .background(Color.Red)
-                            .wrapContentSize(Alignment.CenterEnd)
-                            .padding(12.dp),
+                        modifier = Modifier.size(32.dp),
                         tint = Color.White
                     )
                 }
-
-                else -> {}
             }
         }
     ) {
@@ -61,7 +68,9 @@ fun CardFavorite(
             pokemonName = pokemonName,
             pokemonNumber = pokemonNumber,
             isFavorite = true,
-            onClickFavorite = {}
-        ) { }
+            onClickFavorite = {
+                onRemove(pokemonName)
+            }
+        )
     }
 }
