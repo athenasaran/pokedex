@@ -6,10 +6,10 @@ plugins {
 }
 
 android {
-    namespace = "br.com.pokedex"
+    namespace = "com.athena.pokedex"
 
     defaultConfig {
-        applicationId = "br.com.pokedex"
+        applicationId = "com.athena.pokedex"
         versionCode = 1
         versionName = "1.0"
 

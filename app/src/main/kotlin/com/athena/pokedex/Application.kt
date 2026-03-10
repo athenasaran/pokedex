@@ -1,4 +1,4 @@
-package br.com.pokedex
+package com.athena.pokedex
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
