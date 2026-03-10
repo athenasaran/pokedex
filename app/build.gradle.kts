@@ -2,6 +2,7 @@ plugins {
     id("config.android.application")
     id("config.android.application.compose")
     id("config.android.hilt")
+    alias(libs.plugins.googleServices)
     kotlin("android")
 }
 
@@ -33,6 +34,8 @@ android {
 }
 
 dependencies {
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

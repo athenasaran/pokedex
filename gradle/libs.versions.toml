@@ -14,7 +14,7 @@ junitVersion = "1.1.5"
 espressoCore = "3.5.1"
 lifecycleRuntimeKtx = "2.8.5"
 activityCompose = "1.9.2"
-ksp = "1.9.20-1.0.14"
+ksp = "1.9.22-1.0.16"
 retrofit = "2.10.0"
 retrofit-serialization = "2.10.0"
 coroutines = "1.8.1"
@@ -40,6 +40,8 @@ coroutines-test = "1.6.0"
 androidxTestRunner = "1.6.2"
 androidxTestRules = "1.6.1"
 composeVersion = "1.5.0"
+googleServices = "4.4.2"
+firebaseBom = "33.6.0"
 
 [libraries]
 build-logic-android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
@@ -94,6 +96,8 @@ androidx-test-runner = { group = "androidx.test", name = "runner", version.ref =
 androidx-test-rules = { group = "androidx.test", name = "rules", version.ref = "androidxTestRules" }
 junit-compose-ui-test = { group = "androidx.compose.ui", name = "ui-test-junit4", version.ref = "composeVersion" }
 hilt-test = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hilt" }
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
+firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics" }
 
 [plugins]
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
@@ -101,6 +105,7 @@ androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
 room = { id = "androidx.room", version.ref = "room" }
+googleServices = { id = "com.google.gms.google-services", version.ref = "googleServices" }
 
 [bundles]
 coil-default = ["coil", "coil-netwok"]
