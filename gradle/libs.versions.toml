@@ -42,6 +42,8 @@ androidxTestRules = "1.6.1"
 composeVersion = "1.5.0"
 googleServices = "4.4.2"
 firebaseBom = "33.6.0"
+credentials = "1.3.0"
+googleid = "1.1.1"
 
 [libraries]
 build-logic-android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
@@ -98,6 +100,10 @@ junit-compose-ui-test = { group = "androidx.compose.ui", name = "ui-test-junit4"
 hilt-test = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hilt" }
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
 firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics" }
+firebase-auth = { group = "com.google.firebase", name = "firebase-auth" }
+androidx-credentials = { group = "androidx.credentials", name = "credentials", version.ref = "credentials" }
+androidx-credentials-play-services-auth = { group = "androidx.credentials", name = "credentials-play-services-auth", version.ref = "credentials" }
+googleid = { group = "com.google.android.libraries.identity.googleid", name = "googleid", version.ref = "googleid" }
 
 [plugins]
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
