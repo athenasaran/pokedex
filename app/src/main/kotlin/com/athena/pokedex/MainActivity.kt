@@ -21,6 +21,7 @@ import com.athena.designsystem.theme.PokedexTheme
 import com.athena.pokedex.navigation.AppNavHost
 import com.athena.pokedex.navigation.bottomNavItems
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
+import com.google.android.libraries.identity.googleid.GetSignInWithGoogleOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential.Companion.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL
 import com.google.firebase.Firebase
@@ -48,7 +49,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
 
-        launchCredentialManager()
+        launchCredentialManager2()
 
         setContent {
             PokedexTheme {
@@ -71,6 +72,49 @@ class MainActivity : ComponentActivity() {
     override fun onStart() {
         super.onStart()
 
+    }
+
+    private fun launchCredentialManager2() {
+        lifecycleScope.launch {
+            val credentialManager = CredentialManager.create(this@MainActivity)
+            val webClientId = getString(R.string.default_web_client_id)
+            suspend fun requestGoogleId(authorizedOnly: Boolean) =
+                credentialManager.getCredential(
+                    context = this@MainActivity,
+                    request = GetCredentialRequest.Builder()
+                        .addCredentialOption(
+                            GetGoogleIdOption.Builder()
+                                .setServerClientId(webClientId)
+                                .setFilterByAuthorizedAccounts(authorizedOnly)
+                                .build()
+                        )
+                        .build()
+                ).credential
+            try {
+                val credential = try {
+                    requestGoogleId(authorizedOnly = true)
+                } catch (_: GetCredentialException) {
+                    requestGoogleId(authorizedOnly = false)
+                }
+                handleSignIn(credential)
+            } catch (e: GetCredentialException) {
+                try {
+                    val signInRequest = GetCredentialRequest.Builder()
+                        .addCredentialOption(
+                            GetSignInWithGoogleOption.Builder(webClientId).build()
+                        )
+                        .build()
+                    val result = credentialManager.getCredential(this@MainActivity, signInRequest)
+                    handleSignIn(result.credential)
+                } catch (e2: GetCredentialException) {
+                    Log.e(
+                        "Error",
+                        "Couldn't retrieve user's credentials: ${e2.localizedMessage}",
+                        e2
+                    )
+                }
+            }
+        }
     }
 
     private fun handleSignIn(credential: Credential) {
