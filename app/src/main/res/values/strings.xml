@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Pokedex</string>
+    <!--    <string name="default_web_client_id">462956829840-ai6j5nuosau9iqlhum92rojpmu9qmt80.apps.googleusercontent.com</string>-->
     <string name="default_web_client_id">113731583454-peelks6n560l6h3og0p55f4gted4b3cm.apps.googleusercontent.com</string>
 </resources>
