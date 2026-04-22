@@ -5,6 +5,7 @@ package com.athena.pokedex.presentation.view
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
+import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -69,7 +70,12 @@ fun SharedTransitionScope.PokedexScreen(
                         .sharedElement(
                             state = rememberSharedContentState(key = pokemon.name),
                             animatedVisibilityScope = animatedVisibilityScope,
-                            boundsTransform = { _, _ -> tween(1000) }
+                            boundsTransform = { _, _ ->
+                                tween(
+                                    1000,
+                                    easing = FastOutLinearInEasing
+                                )
+                            }
                         )
                 ) {
                     CardPokedex(
