@@ -7,7 +7,6 @@ import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.animation.SharedTransitionScope
-import androidx.compose.animation.core.EaseOutBounce
 import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
@@ -101,22 +100,12 @@ private fun SharedTransitionScope.PokemonDetailsContent(
     val context = LocalContext.current
     var isFavoriteClicked by remember { mutableStateOf(pokemonDetails.isFavorite) }
     val iconFavorite = if (isFavoriteClicked) DesignSystemDrawableRes.ic_favorite_clicked else DesignSystemDrawableRes.ic_favorite
-    var shouldAnimate by remember { mutableStateOf(false) }
     var isImageClicked by remember { mutableStateOf(false) }
-
-    val bounceScale by animateFloatAsState(
-        targetValue = if (shouldAnimate) 1f else 1.2f,
-        animationSpec = tween(1000, easing = EaseOutBounce)
-    )
 
     val scale by animateFloatAsState(
         targetValue = if (isImageClicked) 1.2f else 1f,
         animationSpec = tween(durationMillis = 300, easing = FastOutSlowInEasing)
     )
-
-    LaunchedEffect(Unit) {
-        shouldAnimate = true
-    }
 
     Column(
         modifier = modifier
@@ -167,11 +156,7 @@ private fun SharedTransitionScope.PokemonDetailsContent(
                 modifier = Modifier
                     .align(Alignment.Center)
                     .padding(vertical = 36.dp)
-                    .size(150.dp)
-                    .graphicsLayer {
-                        scaleX = bounceScale
-                        scaleY = bounceScale
-                    },
+                    .size(150.dp),
                 model = ImageRequest.Builder(context)
                     .data(pokemonDetails.urlImage)
                     .allowHardware(false)
