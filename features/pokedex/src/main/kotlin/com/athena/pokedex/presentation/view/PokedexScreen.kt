@@ -5,8 +5,6 @@ package com.athena.pokedex.presentation.view
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
-import androidx.compose.animation.core.FastOutLinearInEasing
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -45,11 +43,7 @@ fun SharedTransitionScope.PokedexScreen(
     onItemClicked: (String) -> Unit
 ) {
     val listState = rememberLazyListState()
-
-    val showButton by remember {
-        derivedStateOf { listState.firstVisibleItemIndex > 2 }
-    }
-
+    val showButton by remember { derivedStateOf { listState.firstVisibleItemIndex > 2 } }
     val coroutineScope = rememberCoroutineScope()
 
     LaunchedEffect(key1 = Unit) {
@@ -67,18 +61,13 @@ fun SharedTransitionScope.PokedexScreen(
                 Column(
                     modifier = Modifier
                         .padding(8.dp)
-                        .sharedElement(
-                            state = rememberSharedContentState(key = pokemon.name),
+                        .sharedBounds(
+                            sharedContentState = rememberSharedContentState(key = "container + ${pokemon.name}"),
                             animatedVisibilityScope = animatedVisibilityScope,
-                            boundsTransform = { _, _ ->
-                                tween(
-                                    1000,
-                                    easing = FastOutLinearInEasing
-                                )
-                            }
                         )
                 ) {
                     CardPokedex(
+                        animatedVisibilityScope = animatedVisibilityScope,
                         backgroundImage = pokemon.imageUrl,
                         pokemonNumber = pokemon.id,
                         pokemonName = pokemon.name,

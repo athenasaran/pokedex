@@ -1,7 +1,16 @@
+@file:OptIn(ExperimentalSharedTransitionApi::class)
+
 package com.athena.designsystem.components.cardpokedex
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -29,7 +38,6 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -47,8 +55,9 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Composable
-fun CardPokedex(
+fun SharedTransitionScope.CardPokedex(
     modifier: Modifier = Modifier,
+    animatedVisibilityScope: AnimatedVisibilityScope,
     backgroundImage: String,
     pokemonName: String,
     pokemonNumber: String,
@@ -58,7 +67,8 @@ fun CardPokedex(
 ) {
     var isFavoriteClicked by remember { mutableStateOf(false) }
     var colorBackgroundCard by remember { mutableStateOf(Color.Gray) }
-    val iconFavorite = if (isFavoriteClicked) R.drawable.ic_favorite_clicked else R.drawable.ic_favorite
+    val iconFavorite =
+        if (isFavoriteClicked) R.drawable.ic_favorite_clicked else R.drawable.ic_favorite
     var isImageClicked by remember { mutableStateOf(false) }
     val coroutineScope = rememberCoroutineScope()
     val context = LocalContext.current
@@ -92,7 +102,11 @@ fun CardPokedex(
         ) {
             Column(
                 modifier = Modifier
-                    .padding(top = 16.dp, bottom = 16.dp, start = 8.dp),
+                    .padding(top = 16.dp, bottom = 16.dp, start = 8.dp)
+                    .sharedElement(
+                        rememberSharedContentState(key = "text + $pokemonName"),
+                        animatedVisibilityScope
+                    ),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.Start
             ) {
@@ -117,8 +131,17 @@ fun CardPokedex(
             ) {
                 AsyncImage(
                     modifier = Modifier
+                        .sharedElement(
+                            rememberSharedContentState(key = "image + $pokemonName"),
+                            animatedVisibilityScope,
+                            boundsTransform = { _, _ ->
+                                spring(
+                                    stiffness = Spring.StiffnessMediumLow,
+                                    dampingRatio = Spring.DampingRatioLowBouncy
+                                )
+                            }
+                        )
                         .size(90.dp),
-                    contentScale = ContentScale.Crop,
                     model = ImageRequest.Builder(context)
                         .data(backgroundImage)
                         .allowHardware(false)
@@ -159,14 +182,19 @@ fun CardPokedex(
 @Preview
 @Composable
 private fun CardPokedexPrev() {
-    PokedexTheme {
-        CardPokedex(
-            backgroundImage = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
-            pokemonName = "Bulbasaur",
-            pokemonNumber = "001",
-            isFavorite = true,
-            onClickFavorite = {},
-            onCardClick = {}
-        )
+    SharedTransitionLayout {
+        AnimatedVisibility(visible = true) {
+            PokedexTheme {
+                CardPokedex(
+                    backgroundImage = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
+                    pokemonName = "Bulbasaur",
+                    pokemonNumber = "001",
+                    isFavorite = true,
+                    animatedVisibilityScope = this,
+                    onClickFavorite = {},
+                    onCardClick = {}
+                )
+            }
+        }
     }
 }

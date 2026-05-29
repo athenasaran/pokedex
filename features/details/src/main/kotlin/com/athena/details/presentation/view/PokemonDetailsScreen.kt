@@ -7,9 +7,10 @@ import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.animation.SharedTransitionScope
-import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -17,6 +18,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,7 +26,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -53,6 +58,7 @@ import com.athena.designsystem.components.button.ButtonSmallPokedex
 import com.athena.designsystem.components.pokemon.PokemonType
 import com.athena.designsystem.theme.Black
 import com.athena.designsystem.theme.Typography
+import com.athena.designsystem.theme.White
 import com.athena.designsystem.utils.DesignSystemDrawableRes
 import com.athena.designsystem.utils.extractDominantColorFromBitmap
 import com.athena.details.presentation.intent.PokemonDetailsIntent
@@ -110,10 +116,9 @@ private fun SharedTransitionScope.PokemonDetailsContent(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .sharedElement(
-                state = rememberSharedContentState(key = pokemonDetails.name),
-                animatedVisibilityScope = animatedVisibilityScope,
-                boundsTransform = { _, _ -> tween(1000, easing = FastOutLinearInEasing) }
+            .sharedBounds(
+                rememberSharedContentState(key = "container + ${pokemonDetails.name}"),
+                animatedVisibilityScope = animatedVisibilityScope
             )
             .clickable {
                 onClick()
@@ -123,12 +128,22 @@ private fun SharedTransitionScope.PokemonDetailsContent(
             Modifier
                 .background(colorBackgroundCard)
                 .fillMaxWidth(),
-            contentAlignment = Alignment.TopEnd
         ) {
+            IconButton(
+                onClick = onClick,
+                modifier = Modifier.align(Alignment.TopStart)
+            ) {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                    contentDescription = null,
+                    tint = White
+                )
+            }
             Image(
                 painter = painterResource(id = iconFavorite),
                 contentDescription = null,
                 modifier = Modifier
+                    .align(Alignment.TopEnd)
                     .padding(8.dp)
                     .graphicsLayer {
                         scaleX = scale
@@ -154,6 +169,16 @@ private fun SharedTransitionScope.PokemonDetailsContent(
             AsyncImage(
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
+                    .sharedElement(
+                        rememberSharedContentState(key = "image + ${pokemonDetails.name}"),
+                        animatedVisibilityScope,
+                        boundsTransform = { _, _ ->
+                            spring(
+                                stiffness = Spring.StiffnessMediumLow,
+                                dampingRatio = Spring.DampingRatioLowBouncy
+                            )
+                        }
+                    )
                     .align(Alignment.Center)
                     .padding(vertical = 36.dp)
                     .size(150.dp),
@@ -170,25 +195,36 @@ private fun SharedTransitionScope.PokemonDetailsContent(
                 }
             )
         }
-        Text(
-            text = pokemonDetails.name,
-            style = Typography.titleLarge,
-            color = Black,
-            modifier = Modifier.padding(start = 8.dp)
-        )
-        Text(
-            text = "Nº ${pokemonDetails.id}",
-            style = Typography.titleSmall,
-            color = Black,
-            modifier = Modifier.padding(start = 8.dp)
-        )
-        Row {
-            pokemonDetails.type.forEach { type ->
-                val category = PokemonType.fromTypeName(type.name)
-                ButtonSmallPokedex(category) { }
+
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(paddingValues = PaddingValues(16.dp))
+                .sharedElement(
+                    rememberSharedContentState(key = "text + ${pokemonDetails.name}"),
+                    animatedVisibilityScope
+                )
+        ) {
+            Text(
+                text = pokemonDetails.name,
+                style = Typography.titleLarge,
+                color = Black,
+                modifier = Modifier.padding(start = 8.dp)
+            )
+            Text(
+                text = "Nº ${pokemonDetails.id}",
+                style = Typography.titleSmall,
+                color = Black,
+                modifier = Modifier.padding(start = 8.dp)
+            )
+            Row {
+                pokemonDetails.type.forEach { type ->
+                    val category = PokemonType.fromTypeName(type.name)
+                    ButtonSmallPokedex(category) { }
+                }
             }
+            DetailsBox(pokemonDetails)
         }
-        DetailsBox(pokemonDetails)
     }
 }
 

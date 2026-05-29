@@ -45,7 +45,7 @@ fun AppNavHost(
             }
 
             composable(route = AppNavDestinations.FAVORITE_ROUTE) {
-                FavoriteRoute(hiltViewModel())
+                FavoriteRoute(hiltViewModel(), animatedVisibilityScope = this)
             }
 
             composable(route = AppNavDestinations.ACCOUNT_ROUTE) {

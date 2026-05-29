@@ -26,7 +26,7 @@ class PokemonDetailsViewModel @Inject constructor(
         when (intent) {
             is PokemonDetailsIntent.OnInitScreen -> getPokemonDetails(intent.pokemonName)
             is PokemonDetailsIntent.OnFavoriteClick -> updateFavoriteUseCase.invoke(
-                intent.pokemonName.lowercase(),
+                intent.pokemonName,
                 intent.isFavorite
             )
             is PokemonDetailsIntent.Retry -> getPokemonDetails(intent.pokemonName)
