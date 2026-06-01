@@ -78,7 +78,10 @@ private fun FavoriteContent(
     LazyColumn(
         modifier.padding(vertical = 8.dp, horizontal = 6.dp)
     ) {
-        items(favorites) { favorite ->
+        items(
+            items = favorites,
+            key = { it.name }
+        ) { favorite ->
             CardFavorite(
                 modifier.padding(vertical = 8.dp),
                 pokemonName = favorite.name,
