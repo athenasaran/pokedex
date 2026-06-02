@@ -1,5 +1,8 @@
 package com.athena.designsystem.components.cardfavorite
 
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,11 +21,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.athena.designsystem.components.cardpokedex.CardPokedex
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun CardFavorite(
+fun SharedTransitionScope.CardFavorite(
     modifier: Modifier = Modifier,
     pokemonName: String,
     backgroundImage: String,
+    animatedVisibilityScope: AnimatedVisibilityScope,
     pokemonNumber: String,
     onRemove: (String) -> Unit = {}
 ) {
@@ -69,6 +74,7 @@ fun CardFavorite(
                 backgroundImage = backgroundImage,
                 pokemonName = pokemonName,
                 pokemonNumber = pokemonNumber,
+                animatedVisibilityScope = animatedVisibilityScope,
                 isFavorite = true,
                 onClickFavorite = {
                     onRemove(pokemonName)
