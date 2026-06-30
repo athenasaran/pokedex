@@ -2,7 +2,6 @@ package com.athena.pokedex
 
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.padding
@@ -43,7 +42,16 @@ internal class MainActivity : ComponentActivity() {
         installSplashScreen()
         super.onCreate(savedInstanceState)
 
-        launchCredentialManager2()
+        try {
+            if (auth.get().currentUser == null) {
+                launchCredentialManager()
+            } else {
+                Log.d("Firebase", "User already signed in: ${auth.get().currentUser}")
+            }
+        } catch (e: Exception) {
+            Log.w("Firebase", "FirebaseAuth not ready yet, falling back to CredentialManager", e)
+            launchCredentialManager()
+        }
 
         setContent {
             PokedexTheme {
@@ -63,7 +71,7 @@ internal class MainActivity : ComponentActivity() {
         }
     }
 
-    private fun launchCredentialManager2() {
+    private fun launchCredentialManager() {
         lifecycleScope.launch {
             val webClientId = getString(R.string.default_web_client_id)
 
@@ -141,8 +149,6 @@ internal class MainActivity : ComponentActivity() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d("TAG", "signInWithCredential:success")
-                    val user = auth.get().currentUser
-                    Toast.makeText(this.baseContext, "$user", Toast.LENGTH_LONG).show()
                 } else {
                     // If sign in fails, display a message to the user
                     Log.w("TAG", "signInWithCredential:failure", task.exception)
