@@ -24,30 +24,24 @@ import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GetSignInWithGoogleOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential.Companion.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL
-import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.auth.auth
+import dagger.Lazy
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : ComponentActivity() {
-//    @Inject
-//    lateinit var credentialManager: CredentialManager
-//
-//    @Inject
-//    lateinit var getCredentialRequest: GetCredentialRequest
-//
-//    @Inject
-//    lateinit var auth2: FirebaseAuth
+internal class MainActivity : ComponentActivity() {
+    @Inject
+    lateinit var auth: Lazy<FirebaseAuth>
 
-    private lateinit var auth: FirebaseAuth
+    @Inject
+    lateinit var credentialManager: Lazy<CredentialManager>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
-        auth = Firebase.auth
 
         launchCredentialManager2()
 
@@ -69,53 +63,62 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-
-    }
-
     private fun launchCredentialManager2() {
         lifecycleScope.launch {
-            val credentialManager = CredentialManager.create(this@MainActivity)
             val webClientId = getString(R.string.default_web_client_id)
-            suspend fun requestGoogleId(authorizedOnly: Boolean) =
-                credentialManager.getCredential(
-                    context = this@MainActivity,
-                    request = GetCredentialRequest.Builder()
-                        .addCredentialOption(
-                            GetGoogleIdOption.Builder()
-                                .setServerClientId(webClientId)
-                                .setFilterByAuthorizedAccounts(authorizedOnly)
-                                .build()
-                        )
-                        .build()
-                ).credential
+
             try {
                 val credential = try {
-                    requestGoogleId(authorizedOnly = true)
+                    requestGoogleId(
+                        authorizedOnly = true,
+                        credentialManager = credentialManager.get(),
+                        webClientId = webClientId
+                    )
                 } catch (_: GetCredentialException) {
-                    requestGoogleId(authorizedOnly = false)
+                    requestGoogleId(
+                        authorizedOnly = false,
+                        credentialManager = credentialManager.get(),
+                        webClientId = webClientId
+                    )
                 }
                 handleSignIn(credential)
-            } catch (e: GetCredentialException) {
+            } catch (_: GetCredentialException) {
                 try {
                     val signInRequest = GetCredentialRequest.Builder()
                         .addCredentialOption(
                             GetSignInWithGoogleOption.Builder(webClientId).build()
                         )
                         .build()
-                    val result = credentialManager.getCredential(this@MainActivity, signInRequest)
+                    val result =
+                        credentialManager.get().getCredential(this@MainActivity, signInRequest)
                     handleSignIn(result.credential)
-                } catch (e2: GetCredentialException) {
+                } catch (e: GetCredentialException) {
                     Log.e(
                         "Error",
-                        "Couldn't retrieve user's credentials: ${e2.localizedMessage}",
-                        e2
+                        "Couldn't retrieve user's credentials: ${e.localizedMessage}",
+                        e
                     )
                 }
             }
         }
     }
+
+    private suspend fun requestGoogleId(
+        authorizedOnly: Boolean,
+        credentialManager: CredentialManager,
+        webClientId: String
+    ) =
+        credentialManager.getCredential(
+            context = this@MainActivity,
+            request = GetCredentialRequest.Builder()
+                .addCredentialOption(
+                    GetGoogleIdOption.Builder()
+                        .setServerClientId(webClientId)
+                        .setFilterByAuthorizedAccounts(authorizedOnly)
+                        .build()
+                )
+                .build()
+        ).credential
 
     private fun handleSignIn(credential: Credential) {
         // Check if credential is of type Google ID
@@ -133,81 +136,17 @@ class MainActivity : ComponentActivity() {
 
     private fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
-        auth.signInWithCredential(credential)
+        auth.get().signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d("TAG", "signInWithCredential:success")
-                    val user = auth.currentUser
-                    Toast.makeText(this.baseContext, "${user}", Toast.LENGTH_LONG).show()
+                    val user = auth.get().currentUser
+                    Toast.makeText(this.baseContext, "$user", Toast.LENGTH_LONG).show()
                 } else {
                     // If sign in fails, display a message to the user
                     Log.w("TAG", "signInWithCredential:failure", task.exception)
                 }
             }
     }
-
-    private fun launchCredentialManager() {
-        val googleIdOption = GetGoogleIdOption.Builder()
-            // Your server's client ID, not your Android client ID.
-            .setServerClientId(getString(R.string.default_web_client_id))
-            // Only show accounts previously used to sign in.
-            .setFilterByAuthorizedAccounts(true)
-            .build()
-
-        // Create the Credential Manager request
-        val request = GetCredentialRequest.Builder()
-            .addCredentialOption(googleIdOption)
-            .build()
-
-        lifecycleScope.launch {
-            try {
-
-                val credentialManager = CredentialManager.create(baseContext)
-
-                // Launch Credential Manager UI
-                val result = credentialManager.getCredential(
-                    context = baseContext,
-                    request = request
-                )
-
-                // Extract credential from the result returned by Credential Manager
-                handleSignIn(result.credential)
-            } catch (e: GetCredentialException) {
-                Log.e("Error", "Couldn't retrieve user's credentials: ${e.localizedMessage}")
-            }
-        }
-    }
-//
-//    private fun handleSignIn(credential: Credential) {
-//        // Check if credential is of type Google ID
-//        if (credential is CustomCredential && credential.type == TYPE_GOOGLE_ID_TOKEN_CREDENTIAL) {
-//            // Create Google ID Token
-//            val googleIdTokenCredential = GoogleIdTokenCredential.createFrom(credential.data)
-//
-//            // Sign in to Firebase with using the token
-//            firebaseAuthWithGoogle(googleIdTokenCredential.idToken)
-//        } else {
-//            Log.d("Error", "Credential is not of type Google ID!")
-//        }
-//    }
-//// [END handle_sign_in]
-//
-//    // [START auth_with_google]
-//    private fun firebaseAuthWithGoogle(idToken: String) {
-//        val credential = GoogleAuthProvider.getCredential(idToken, null)
-//        auth.signInWithCredential(credential)
-//            .addOnCompleteListener(this) { task ->
-//                if (task.isSuccessful) {
-//                    // Sign in success, update UI with the signed-in user's information
-//                    Log.d("Error", "signInWithCredential:success")
-//                    val user = auth.currentUser
-//                    Toast.makeText(this.baseContext, "${user}", Toast.LENGTH_LONG).show()
-//                } else {
-//                    // If sign in fails, display a message to the user
-//                    Log.d("Error", "signInWithCredential:failure", task.exception)
-//                    Toast.makeText(this.baseContext, "Error", Toast.LENGTH_LONG).show()
-//                }
-//            }
-//    }
 }
