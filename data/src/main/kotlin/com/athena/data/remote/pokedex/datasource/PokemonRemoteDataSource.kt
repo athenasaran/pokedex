@@ -3,6 +3,7 @@ package com.athena.data.remote.pokedex.datasource
 import com.athena.data.remote.pokedex.api.PokemonApi
 import com.athena.data.remote.pokedex.model.PokemonListResponse
 import com.athena.domain.model.pokedex.Pokemon
+import com.athena.utils.upperFirstLetter
 import javax.inject.Inject
 
 private const val LIMIT = 20
@@ -13,7 +14,12 @@ class PokemonRemoteDataSource @Inject constructor(
     suspend fun getPokemons(offset: Int) = pokemonApi.getPokemons(LIMIT, offset * LIMIT).toPokemonList()
 
     private fun PokemonListResponse.toPokemonList() = results.map {
-        Pokemon(it.name, getImageUrl(it.url), getId(it.url), false)
+        Pokemon(
+            name = upperFirstLetter(it.name),
+            imageUrl = getImageUrl(it.url),
+            id = getId(it.url),
+            isFavorite = false
+        )
     }
 
     private fun getImageUrl(url: String): String {

@@ -1,5 +1,10 @@
+@file:OptIn(ExperimentalSharedTransitionApi::class)
+
 package com.athena.favorite.presentation.view
 
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,8 +30,9 @@ import com.athena.features.favorite.R
 import com.athena.designsystem.R as DesignSystemR
 
 @Composable
-private fun FavoriteScreen(
+private fun SharedTransitionScope.FavoriteScreen(
     modifier: Modifier = Modifier,
+    animatedVisibilityScope: AnimatedVisibilityScope,
     onIntent: (FavoriteIntent) -> Unit,
     state: FavoriteState
 ) {
@@ -46,6 +52,7 @@ private fun FavoriteScreen(
         else -> {
             FavoriteContent(
                 modifier = modifier,
+                animatedVisibilityScope = animatedVisibilityScope,
                 favorites = state.favorites,
                 onIntent = onIntent
             )
@@ -70,20 +77,25 @@ private fun EmptyScreen(modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun FavoriteContent(
+private fun SharedTransitionScope.FavoriteContent(
     modifier: Modifier = Modifier,
+    animatedVisibilityScope: AnimatedVisibilityScope,
     favorites: List<Favorite>,
     onIntent: (FavoriteIntent) -> Unit
 ) {
     LazyColumn(
         modifier.padding(vertical = 8.dp, horizontal = 6.dp)
     ) {
-        items(favorites) { favorite ->
+        items(
+            items = favorites,
+            key = { it.name }
+        ) { favorite ->
             CardFavorite(
                 modifier.padding(vertical = 8.dp),
                 pokemonName = favorite.name,
                 backgroundImage = favorite.imageUrl,
                 pokemonNumber = favorite.number,
+                animatedVisibilityScope = animatedVisibilityScope,
                 onRemove = { name ->
                     onIntent(FavoriteIntent.OnItemDeleted(name))
                 },
@@ -94,13 +106,15 @@ private fun FavoriteContent(
 }
 
 @Composable
-fun FavoriteRoute(
-    viewModel: FavoriteViewModel
+fun SharedTransitionScope.FavoriteRoute(
+    viewModel: FavoriteViewModel,
+    animatedVisibilityScope: AnimatedVisibilityScope,
 ) {
     val state by viewModel.screenState.collectAsStateWithLifecycle()
 
     FavoriteScreen(
         onIntent = viewModel::handleIntent,
+        animatedVisibilityScope = animatedVisibilityScope,
         state = state
     )
 }
