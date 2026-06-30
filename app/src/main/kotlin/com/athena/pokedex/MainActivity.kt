@@ -136,9 +136,9 @@ internal class MainActivity : ComponentActivity() {
 
             // Sign in to Firebase with using the token
             firebaseAuthWithGoogle(googleIdTokenCredential.idToken)
-            Log.d("TAG", "Credential is of type Google ID! ${googleIdTokenCredential.idToken}")
+            Log.d("Firebase", "Credential is of type Google ID! ${googleIdTokenCredential.idToken}")
         } else {
-            Log.d("TAG", "Credential is not of type Google ID!")
+            Log.d("Firebase", "Credential is not of type Google ID!")
         }
     }
 
@@ -148,10 +148,10 @@ internal class MainActivity : ComponentActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
-                    Log.d("TAG", "signInWithCredential:success")
+                    Log.d("Firebase", "signInWithCredential:success")
                 } else {
                     // If sign in fails, display a message to the user
-                    Log.w("TAG", "signInWithCredential:failure", task.exception)
+                    Log.w("Firebase", "signInWithCredential:failure", task.exception)
                 }
             }
     }
