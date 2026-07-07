@@ -1,6 +1,7 @@
 package com.athena.pokedex.di
 
 import com.athena.domain.repository.details.PokemonDetailsRepository
+import com.athena.domain.repository.favorite.FavoriteRepository
 import com.athena.domain.repository.pokedex.PokedexRepository
 import com.athena.domain.repository.regions.RegionRepository
 import dagger.Module
@@ -28,5 +29,10 @@ object FakePokedexModule {
     @Provides
     fun bindRegionRepository(): RegionRepository {
         return mockk<RegionRepository>()
+    }
+
+    @Provides
+    fun bindFavoriteRepository(): FavoriteRepository {
+        return mockk<FavoriteRepository>()
     }
 }

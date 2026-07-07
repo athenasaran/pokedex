@@ -12,6 +12,7 @@ dependencies {
     api(libs.androidx.test.runner)
     api(libs.androidx.junit)
     api(libs.androidx.test.rules)
+    api(libs.androidx.espresso.core)
     api(libs.junit.compose.ui.test)
     api(libs.hilt.test)
     api(libs.mockk.android)
