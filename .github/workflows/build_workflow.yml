@@ -47,11 +47,6 @@ jobs:
           app: app/build/outputs/apk/debug/app-debug.apk
           test: app/build/outputs/apk/androidTest/app-debug-androidTest.apk
           outputs-dir: build/test-results
-      - name: Publish test report
-        uses: mikepenz/action-junit-report@v6
-        if: always()
-        with:
-          report_paths: 'build/test-results/**/*.xml'
 
   success_message:
     name: On Jobs Finished
