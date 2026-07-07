@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "101684550713",
+    "project_id": "pokedex-1be24",
+    "storage_bucket": "pokedex-1be24.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:101684550713:android:26c3ef372566a78f9081e8",
+        "android_client_info": {
+          "package_name": "com.athena.pokedex"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "101684550713-s2h199oflnlivoko9g9o0e0fdps29omr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.athena.pokedex",
+            "certificate_hash": "699b63a256fc8a802133c2ab6a4ec230f1731859"
+          }
+        },
+        {
+          "client_id": "101684550713-d1jbqmi1c14jcffv2q7c6jnekn4bavam.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvIs6qG6UIMoXfg4t5yNzyquKd_YkDTTc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "101684550713-d1jbqmi1c14jcffv2q7c6jnekn4bavam.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
