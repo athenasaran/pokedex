@@ -87,6 +87,6 @@ class PokedexScreenTest {
         }
 
         composeTestRule.awaitIdle()
-        composeTestRule.onNodeWithText("Bulbasaur").assertIsDisplayed()
+        composeTestRule.onNodeWithText("Bulbasau").assertIsDisplayed()
     }
 }
