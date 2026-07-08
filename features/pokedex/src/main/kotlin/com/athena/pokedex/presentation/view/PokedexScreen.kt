@@ -35,7 +35,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun SharedTransitionScope.PokedexScreen(
+private fun SharedTransitionScope.PokedexScreen(
     modifier: Modifier = Modifier,
     onIntent: (PokedexIntent) -> Unit,
     state: PokedexState,

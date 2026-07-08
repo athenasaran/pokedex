@@ -31,4 +31,7 @@ dependencies {
     implementation(libs.retrofit.converter.kotlin.serialization)
     implementation(libs.logging.interceptor)
     implementation(libs.serialization)
+
+    androidTestImplementation(libs.androidx.test.runner)
+    androidTestImplementation(libs.androidx.junit)
 }

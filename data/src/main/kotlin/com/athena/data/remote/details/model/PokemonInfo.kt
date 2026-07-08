@@ -7,7 +7,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class PokemonInfo(
+internal data class PokemonInfo(
     @SerialName("id") val id: Int,
     @SerialName("name") val name: String,
     @SerialName("height") val height: Int,
@@ -19,37 +19,37 @@ data class PokemonInfo(
 )
 
 @Serializable
-data class TypeResponse(
+internal data class TypeResponse(
     @SerialName("slot") val slot: Int,
     @SerialName("type") val type: Type,
 )
 
 @Serializable
-data class Type(
+internal data class Type(
     @SerialName("name") val name: String,
 )
 
 @Serializable
-data class Sprites(
+internal data class Sprites(
     @SerialName("other") val other: ArtWork,
 )
 
 @Serializable
-data class ArtWork(
+internal data class ArtWork(
     @SerialName("official-artwork") val officialArtwork: OfficialArtwork
 )
 
 @Serializable
-data class OfficialArtwork(
+internal data class OfficialArtwork(
     @SerialName("front_default") val imageArtWork: String
 )
 
 @Serializable
-data class Abilities(
+internal data class Abilities(
     @SerialName("ability") val ability: Ability,
 )
 
 @Serializable
-data class Ability(
+internal data class Ability(
     @SerialName("name") val abilityName: String,
 )

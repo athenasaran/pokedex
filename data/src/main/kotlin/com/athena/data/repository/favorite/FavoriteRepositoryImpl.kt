@@ -6,7 +6,7 @@ import com.athena.domain.repository.favorite.FavoriteRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class FavoriteRepositoryImpl @Inject constructor(
+internal class FavoriteRepositoryImpl @Inject constructor(
     private val favoriteLocalDataSource: FavoriteLocalDataSource
 ) : FavoriteRepository {
 

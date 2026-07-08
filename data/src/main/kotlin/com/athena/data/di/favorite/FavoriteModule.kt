@@ -9,7 +9,7 @@ import dagger.hilt.android.components.ViewModelComponent
 
 @InstallIn(ViewModelComponent::class)
 @Module
-abstract class FavoriteModule {
+internal abstract class FavoriteModule {
 
     @Binds
     abstract fun provideFavoriteRepository(favoriteRepositoryImpl: FavoriteRepositoryImpl): FavoriteRepository

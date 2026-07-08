@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class PokemonDetailsEntity(
+internal data class PokemonDetailsEntity(
     @PrimaryKey @ColumnInfo("id") val id: Int,
     @ColumnInfo("name") val name: String,
     @ColumnInfo("height") val height: String,

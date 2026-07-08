@@ -14,7 +14,7 @@ import dagger.hilt.android.scopes.ActivityScoped
 
 @Module
 @InstallIn(ActivityComponent::class)
-object MainModule {
+internal object MainModule {
     @ActivityScoped
     @Provides
     fun provideCredentialManager(@ActivityContext context: Context): CredentialManager {

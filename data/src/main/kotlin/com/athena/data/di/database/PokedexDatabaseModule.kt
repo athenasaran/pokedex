@@ -11,7 +11,7 @@ import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
-class PokedexDatabaseModule {
+internal class PokedexDatabaseModule {
     @Provides
     @Singleton
     fun provideAppDatabase(

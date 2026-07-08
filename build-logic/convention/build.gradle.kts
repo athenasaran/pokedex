@@ -9,6 +9,12 @@ java {
     targetCompatibility = JavaVersion.VERSION_17
 }
 
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+}
+
 dependencies {
     compileOnly(libs.build.logic.android.gradlePlugin)
     compileOnly(libs.build.logic.kotlin.gradlePlugin)
@@ -43,6 +49,10 @@ gradlePlugin {
         register("androidRoom") {
             id = "config.android.room"
             implementationClass = "AndroidRoomConventionPlugin"
+        }
+        register("androidFeature") {
+            id = "config.android.feature"
+            implementationClass = "AndroidFeatureConventionPlugin"
         }
     }
 }

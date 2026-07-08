@@ -4,7 +4,7 @@ import com.athena.data.remote.details.model.PokemonInfo
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-interface PokemonDetailsApi {
+internal interface PokemonDetailsApi {
     @GET("pokemon/{name}")
     suspend fun getDetailsPokemon(
         @Path("name") name: String

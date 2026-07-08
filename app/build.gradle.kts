@@ -61,4 +61,8 @@ dependencies {
     implementation(project(":features:pokedex"))
     implementation(project(":features:regions"))
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    androidTestImplementation(libs.androidx.test.runner)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(project(":android-testing"))
 }

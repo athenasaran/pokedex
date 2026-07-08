@@ -12,7 +12,7 @@ data class RegionUI(
     val pokemonImages: List<String>
 )
 
-fun List<Region>.toUI(): List<RegionUI> {
+internal fun List<Region>.toUI(): List<RegionUI> {
     return map {
         val generationRomanNumeral = it.generationRomanNumber
 

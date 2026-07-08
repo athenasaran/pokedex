@@ -8,7 +8,7 @@ import com.athena.data.local.pokedex.model.PokemonEntity
 import com.athena.data.local.pokedex.model.PokemonHomeDTO
 
 @Dao
-interface PokemonDao {
+internal interface PokemonDao {
     @Query(
         "SELECT id, name, imageUrl, favorites.pokemonName is not null as isFavorite " +
                 "FROM PokemonEntity left join favorites on PokemonEntity.name = favorites.pokemonName  " +

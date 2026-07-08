@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class PokemonDetailsRepositoryImpl @Inject constructor(
+internal class PokemonDetailsRepositoryImpl @Inject constructor(
     private val pokemonDetailsRemoteDataSource: PokemonDetailsRemoteDataSource,
     private val pokemonDetailsLocalDataSource: PokemonDetailsLocalDataSource,
     private val favoriteLocalDataSource: FavoriteLocalDataSource

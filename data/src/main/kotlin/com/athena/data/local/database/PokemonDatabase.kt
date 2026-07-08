@@ -21,7 +21,7 @@ import com.athena.data.local.pokedex.model.PokemonEntity
     ],
     version = 1
 )
-abstract class PokemonDatabase : RoomDatabase() {
+internal abstract class PokemonDatabase : RoomDatabase() {
     abstract fun pokemonDao(): PokemonDao
     abstract fun pokemonDetailsDao(): PokemonDetailsDao
     abstract fun favoriteDao(): FavoriteDAO

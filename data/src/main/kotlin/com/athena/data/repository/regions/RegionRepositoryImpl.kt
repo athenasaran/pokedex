@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class RegionRepositoryImpl @Inject constructor(
+internal class RegionRepositoryImpl @Inject constructor(
     private val regionsDataSource: RegionsDataSource
 ) : RegionRepository {
     override fun getRegions(): Flow<List<Region>> {
