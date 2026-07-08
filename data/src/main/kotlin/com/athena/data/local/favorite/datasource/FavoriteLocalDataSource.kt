@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class FavoriteLocalDataSource @Inject constructor(
+internal class FavoriteLocalDataSource @Inject constructor(
     private val favoriteDAO: FavoriteDAO
 ) {
     suspend fun insertFavorite(pokemonName: String) {

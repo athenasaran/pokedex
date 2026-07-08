@@ -12,7 +12,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 
 @Composable
-fun <T> EndlessLazyColumn(
+internal fun <T> EndlessLazyColumn(
     modifier: Modifier = Modifier,
     buffer: Int = 1,
     listState: LazyListState = rememberLazyListState(),

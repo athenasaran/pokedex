@@ -11,7 +11,7 @@ import com.athena.data.local.details.model.PokemonDetailsEntity
 import com.athena.data.local.details.model.TypesEntity
 
 @Dao
-interface PokemonDetailsDao {
+internal interface PokemonDetailsDao {
     @Transaction
     @Query("SELECT * FROM PokemonDetailsEntity WHERE name = :name limit 1")
     suspend fun getPokemonDetails(name: String): PokemonDetailsCrossRef?

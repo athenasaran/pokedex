@@ -6,7 +6,7 @@ import com.athena.data.local.pokedex.model.PokemonHomeDTO
 import com.athena.domain.model.pokedex.Pokemon
 import javax.inject.Inject
 
-class PokemonLocalDataSource @Inject constructor(
+internal class PokemonLocalDataSource @Inject constructor(
     private val pokemonDao: PokemonDao
 ) {
     suspend fun getPokemonsInPage(page: Int) = pokemonDao.getPokemons(page)

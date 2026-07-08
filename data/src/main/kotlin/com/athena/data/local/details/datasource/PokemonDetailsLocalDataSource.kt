@@ -8,7 +8,7 @@ import com.athena.domain.model.details.PokemonDetails
 import com.athena.domain.model.details.Type
 import javax.inject.Inject
 
-class PokemonDetailsLocalDataSource @Inject constructor(
+internal class PokemonDetailsLocalDataSource @Inject constructor(
     private val pokemonDetailsDao: PokemonDetailsDao
 ) {
     suspend fun getPokemonDetails(name: String, isFavorite: Boolean): PokemonDetails? {

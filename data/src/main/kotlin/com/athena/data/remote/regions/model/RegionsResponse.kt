@@ -7,12 +7,12 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class RegionsResponse(
+internal data class RegionsResponse(
     @SerialName("results") val results: List<RegionResponse>
 )
 
 @Serializable
-data class RegionResponse(
+internal data class RegionResponse(
     @SerialName("name") val name: String,
     @SerialName("url") val url: String
 )

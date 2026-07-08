@@ -72,7 +72,7 @@ fun AppNavHost(
     }
 }
 
-val bottomNavItems = listOf(
+internal val bottomNavItems = listOf(
     BottomNavItem(
         title = "Pokedéx",
         route = AppNavDestinations.POKEDEX_ROUTE,

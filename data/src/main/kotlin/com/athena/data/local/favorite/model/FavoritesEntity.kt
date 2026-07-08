@@ -15,7 +15,7 @@ import com.athena.data.local.pokedex.model.PokemonEntity
         onDelete = ForeignKey.CASCADE
     )]
 )
-data class FavoritesEntity(
+internal data class FavoritesEntity(
     @PrimaryKey
     @ColumnInfo("pokemonName")
     val pokemonName: String

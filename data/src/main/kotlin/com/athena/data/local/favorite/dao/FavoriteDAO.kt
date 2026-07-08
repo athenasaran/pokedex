@@ -9,7 +9,7 @@ import com.athena.data.local.favorite.model.FavoritesEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface FavoriteDAO {
+internal interface FavoriteDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertFavorite(favoritesEntity: FavoritesEntity)
 

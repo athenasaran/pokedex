@@ -12,7 +12,7 @@ import retrofit2.Retrofit
 
 @InstallIn(ViewModelComponent::class)
 @Module
-interface PokedexModule {
+internal interface PokedexModule {
 
     companion object {
         @Provides

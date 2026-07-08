@@ -12,7 +12,7 @@ import retrofit2.Retrofit
 
 @InstallIn(ViewModelComponent::class)
 @Module
-interface RegionsModule {
+internal interface RegionsModule {
 
     companion object {
         @Provides

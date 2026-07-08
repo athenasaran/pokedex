@@ -11,7 +11,7 @@ import dagger.hilt.android.components.ViewModelComponent
 
 @InstallIn(ViewModelComponent::class)
 @Module
-class PokedexDaoModule {
+internal class PokedexDaoModule {
     @Provides
     fun providePokemonDao(appDatabase: PokemonDatabase): PokemonDao {
         return appDatabase.pokemonDao()
