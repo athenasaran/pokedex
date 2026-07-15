@@ -85,7 +85,7 @@ private fun DontHaveFavoritePreview() {
 @Composable
 private fun LoginForFavoritePreview() {
     DefaultErrorContent(
-        imageError = R.drawable.img_login_favorite,
+        imageError = R.drawable.img_not_found_favorite,
         title = "You need to login to favorite Pokémon.",
         subTitle = "For access this feature, you need to login or create an account. Do it now!",
         buttonTitle = "Sign In or Register",

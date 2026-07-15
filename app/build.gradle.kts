@@ -60,6 +60,7 @@ dependencies {
     implementation(project(":features:favorite"))
     implementation(project(":features:pokedex"))
     implementation(project(":features:regions"))
+    implementation(project(":features:login"))
     debugImplementation(libs.androidx.ui.test.manifest)
 
     androidTestImplementation(libs.androidx.test.runner)

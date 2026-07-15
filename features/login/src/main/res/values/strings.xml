@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onboarding_title_all_pokemon">Todos os Pokémons em um só Lugar</string>
+    <string name="onboarding_description_all_generations">Acesse uma vasta lista de Pokémon de todas as gerações já feitas pela Nintendo</string>
+    <string name="onboarding_title_updated_pokedex">Mantenha sua Pokédex atualizada</string>
+    <string name="onboarding_description_save_profile">Cadastre-se e mantenha seu perfil, pokémon favoritos, configurações e muito mais, salvos no aplicativo, mesmo sem conexão com a internet.</string>
+    <string name="continue_button">Continuar</string>
+    <string name="onboarding_title_lets_start">Vamos começar!</string>
+    <string name="onboarding_title_ready_for_adventure">Está pronto para essa aventura?</string>
+    <string name="onboarding_description_create_account">Basta criar uma conta e começar a explorar o mundo dos Pokémon hoje!</string>
+    <string name="create_account_button">Criar conta</string>
+    <string name="already_have_account_button">Ja tenho uma conta</string>
+</resources>

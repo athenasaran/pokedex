@@ -17,6 +17,7 @@ import com.athena.designsystem.components.bottombar.SHOULD_DISPLAY_BOTTOM_BAR
 import com.athena.designsystem.utils.DesignSystemDrawableRes
 import com.athena.details.presentation.view.PokemonDetailsRoute
 import com.athena.favorite.presentation.view.FavoriteRoute
+import com.athena.login.presentation.view.LoginScreen
 import com.athena.pokedex.presentation.view.PokedexRoute
 import com.athena.regions.presentation.view.RegionsRoute
 
@@ -50,6 +51,10 @@ fun AppNavHost(
 
             composable(route = AppNavDestinations.ACCOUNT_ROUTE) {
                 AccountScreen()
+            }
+
+            composable(route = AppNavDestinations.LOGIN_ROUTE) {
+                LoginScreen()
             }
 
             composable(route = "pokemon-details/{pokemonName}", arguments = listOf(
@@ -104,4 +109,5 @@ internal object AppNavDestinations {
     const val REGIONS_ROUTE = "regions"
     const val FAVORITE_ROUTE = "favorite"
     const val ACCOUNT_ROUTE = "account"
+    const val LOGIN_ROUTE = "login"
 }
