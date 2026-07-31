@@ -24,19 +24,29 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.athena.designsystem.theme.Blue100
 
-const val SHOULD_DISPLAY_BOTTOM_BAR = "should_display_bottom_bar"
-
+/**
+ * Bottom navigation bar with automatic visibility control.
+ *
+ * @param navController The shared [NavController].
+ * @param items The list of bottom navigation items.
+ * @param hiddenOnRoutes A set of route strings (fully qualified class names)
+ *   where the bottom bar should be hidden (e.g., detail screens).
+ *   Defaults to no hidden routes.
+ */
 @Composable
 fun BottomBar(
     navController: NavController,
-    items: List<BottomNavItem>
+    items: List<BottomNavItem>,
+    hiddenOnRoutes: Set<String> = emptySet(),
 ) {
     var showBottomBar by remember { mutableStateOf(true) }
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
-    currentDestination?.arguments?.get(SHOULD_DISPLAY_BOTTOM_BAR)?.defaultValue.let {
-        showBottomBar = it as? Boolean ?: true
-    }
+
+    showBottomBar = currentDestination?.let { dest ->
+        hiddenOnRoutes.none { routeName -> dest.route == routeName }
+    } ?: true
+
     AnimatedVisibility(showBottomBar) {
         NavigationBar {
             items.forEach { item ->

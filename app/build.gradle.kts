@@ -52,6 +52,7 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.androidx.core.splashscreen)
     implementation(project(":data"))
+    implementation(project(":navigation"))
     implementation(project(":design-system"))
     implementation(project(":domain"))
     implementation(project(":features"))
