@@ -45,7 +45,7 @@ class PokedexScreenTest {
 
     @Test
     fun given_an_empty_list_when_pokedex_screen_its_visible_then_should_not_show_card() = runTest {
-        coEvery { pokedexRepository.getPokemons(0) } returns flowOf(emptyList())
+        coEvery { pokedexRepository.getPokemons(20) } returns flowOf(emptyList())
 
         composeTestRule.setContent {
             SharedTransitionLayout {
