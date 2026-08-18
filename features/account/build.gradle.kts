@@ -5,3 +5,7 @@ plugins {
 android {
     namespace = "com.athena.features.account"
 }
+
+dependencies {
+    implementation(project(":navigation"))
+}

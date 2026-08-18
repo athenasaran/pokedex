@@ -17,6 +17,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.rememberNavController
 import com.athena.designsystem.components.bottombar.BottomBar
 import com.athena.designsystem.theme.PokedexTheme
+import com.athena.navigation.routes.AppRoute
+import com.athena.navigation.routes.requireRoutePattern
 import com.athena.pokedex.navigation.AppNavHost
 import com.athena.pokedex.navigation.bottomNavItems
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
@@ -59,12 +61,16 @@ internal class MainActivity : ComponentActivity() {
 
                 Scaffold(
                     bottomBar = {
-                        BottomBar(navController, bottomNavItems)
+                        BottomBar(
+                            navController = navController,
+                            items = bottomNavItems,
+                            hiddenOnRoutes = setOf(requireRoutePattern<AppRoute.PokemonDetails>()),
+                        )
                     }
                 ) { innerPadding ->
                     AppNavHost(
                         modifier = Modifier.padding(innerPadding),
-                        navController = navController
+                        navController = navController,
                     )
                 }
             }

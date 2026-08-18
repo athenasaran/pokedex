@@ -12,4 +12,5 @@ dependencies {
     implementation(project(":design-system"))
     implementation(project(":domain"))
     implementation(project(":features"))
+    implementation(project(":navigation"))
 }
